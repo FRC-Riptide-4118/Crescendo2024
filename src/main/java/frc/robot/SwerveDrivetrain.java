@@ -7,7 +7,7 @@ package frc.robot;
 import java.lang.Math;
 
 /** Represents a swerve drive style drivetrain. */
-class swerveVehicleClass
+class SwerveVehicleClass
 {
     // constants
     double D2R = Math.PI/180.0 ;  // conversions between degrees and radians
@@ -213,7 +213,7 @@ class swerveVehicleClass
 class main {
     public static void main( String args[] ) {
         
-        swerveVehicleClass veh = new swerveVehicleClass();
+        SwerveVehicleClass veh = new SwerveVehicleClass();
         veh.assign_veh_values_for_square_vehicle(0.3302, 0.1016) ;
         
         double[] initial_steering_deg = {42.5, 33.6, 18.1, 21.9} ;
