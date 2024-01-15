@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 // FIRST imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
 
 // REV imports
 import com.revrobotics.CANSparkMax;
@@ -45,15 +46,15 @@ public class Drive extends SubsystemBase {
   /** Creates a new Drive. */
   public Drive() {
 
-    this.front_left_drive  = new CANSparkMax(Constants.DriveConstants.front_left_drive_id, MotorType.kBrushless);
-    this.front_right_drive = new CANSparkMax(Constants.DriveConstants.front_right_drive_id, MotorType.kBrushless);
-    this.rear_left_drive   = new CANSparkMax(Constants.DriveConstants.rear_left_drive_id, MotorType.kBrushless);
-    this.rear_right_drive  = new CANSparkMax(Constants.DriveConstants.rear_right_drive_id, MotorType.kBrushless);
+    this.front_left_drive  = new CANSparkMax(DriveConstants.front_left_drive_id, MotorType.kBrushless);
+    this.front_right_drive = new CANSparkMax(DriveConstants.front_right_drive_id, MotorType.kBrushless);
+    this.rear_left_drive   = new CANSparkMax(DriveConstants.rear_left_drive_id, MotorType.kBrushless);
+    this.rear_right_drive  = new CANSparkMax(DriveConstants.rear_right_drive_id, MotorType.kBrushless);
 
-    this.front_left_steer  = new CANSparkMax(Constants.DriveConstants.front_left_steer_id, MotorType.kBrushless);
-    this.front_right_steer = new CANSparkMax(Constants.DriveConstants.front_right_steer_id, MotorType.kBrushless);
-    this.rear_left_steer   = new CANSparkMax(Constants.DriveConstants.rear_left_steer_id, MotorType.kBrushless);
-    this.rear_right_steer  = new CANSparkMax(Constants.DriveConstants.rear_right_steer_id, MotorType.kBrushless);
+    this.front_left_steer  = new CANSparkMax(DriveConstants.front_left_steer_id, MotorType.kBrushless);
+    this.front_right_steer = new CANSparkMax(DriveConstants.front_right_steer_id, MotorType.kBrushless);
+    this.rear_left_steer   = new CANSparkMax(DriveConstants.rear_left_steer_id, MotorType.kBrushless);
+    this.rear_right_steer  = new CANSparkMax(DriveConstants.rear_right_steer_id, MotorType.kBrushless);
 
     this.front_left_drive_encoder = this.front_left_drive.getEncoder();
     this.front_right_drive_encoder = this.front_right_drive.getEncoder();
@@ -213,10 +214,10 @@ public class Drive extends SubsystemBase {
 
   public void reset_ALL_encoder_position() {
 
-    reset_encoder_position(Constants.DriveConstants.MotorPosition.C_FRONT_LEFT_STEER);
-    reset_encoder_position(Constants.DriveConstants.MotorPosition.C_FRONT_RIGHT_STEER);
-    reset_encoder_position(Constants.DriveConstants.MotorPosition.C_REAR_LEFT_STEER);
-    reset_encoder_position(Constants.DriveConstants.MotorPosition.C_REAR_RIGHT_STEER);
+    reset_encoder_position(DriveConstants.MotorPosition.C_FRONT_LEFT_STEER);
+    reset_encoder_position(DriveConstants.MotorPosition.C_FRONT_RIGHT_STEER);
+    reset_encoder_position(DriveConstants.MotorPosition.C_REAR_LEFT_STEER);
+    reset_encoder_position(DriveConstants.MotorPosition.C_REAR_RIGHT_STEER);
 
   }
 
@@ -232,7 +233,7 @@ public class Drive extends SubsystemBase {
   public double get_integrated_encoder_angle(Constants.DriveConstants.MotorPosition motor) {
 
     double ticks = this.get_integrated_encoder_position(motor);
-    double angle = ticks * Constants.DriveConstants.DEGREES_PER_TICK;
+    double angle = ticks * DriveConstants.DEGREES_PER_TICK;
     if (angle < 0)
       return 360 - angle;
     return angle;
@@ -241,11 +242,11 @@ public class Drive extends SubsystemBase {
 
   public double get_encoder_position_from_angle(double angle) {
 
-    return angle / Constants.DriveConstants.DEGREES_PER_TICK;
+    return angle / DriveConstants.DEGREES_PER_TICK;
 
   }
 
-  public void turn_wheel_to_angle(Constants.DriveConstants.MotorPosition motor, double angle) {
+  public void turn_wheel_to_angle(DriveConstants.MotorPosition motor, double angle) {
     
     SparkPIDController pid_controller = this.get_PIDController(motor);
     pid_controller.setReference(this.get_encoder_position_from_angle(angle), CANSparkBase.ControlType.kPosition);
