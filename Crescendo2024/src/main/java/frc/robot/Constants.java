@@ -54,6 +54,22 @@ public final class Constants {
     
   }
 
+  public static class SwerveModuleConstants {
+
+    public int angle_motor_id;
+    public int drive_motor_id;
+    public Rotation2d angle_offset;
+
+    public SwerveModuleConstants(int angle_motor_id, int drive_motor_id, Rotation2d angle_offset) {
+
+      this.angle_motor_id = angle_motor_id;
+      this.drive_motor_id = drive_motor_id;
+      this.angle_offset = angle_offset;
+
+    }
+
+  }
+
   public static class SwerveConstants {
 
     public static final boolean angle_invert = false;
@@ -86,27 +102,18 @@ public final class Constants {
       new Translation2d(-wheel_base / 2.0, -track_width / 2.0)
     );
 
+    public static final SwerveModuleConstants[] module_constants = new SwerveModuleConstants[]{
+      new SwerveModuleConstants(0, 4, Rotation2d.fromDegrees(0.0)),
+      new SwerveModuleConstants(1, 5, Rotation2d.fromDegrees(0.0)),
+      new SwerveModuleConstants(2, 6, Rotation2d.fromDegrees(0.0)),
+      new SwerveModuleConstants(3, 7, Rotation2d.fromDegrees(0.0)),
+    };
+
   }
 
   public static class ControllerConstants {
 
     public static final int driver_controller_id = 0;
-
-  }
-
-  public class SwerveModuleConstants {
-
-    public int angle_motor_id;
-    public int drive_motor_id;
-    public Rotation2d angle_offset;
-
-    public SwerveModuleConstants(int angle_motor_id, int drive_motor_id, Rotation2d angle_offset) {
-
-      this.angle_motor_id = angle_motor_id;
-      this.drive_motor_id = drive_motor_id;
-      this.angle_offset = angle_offset;
-
-    }
 
   }
 

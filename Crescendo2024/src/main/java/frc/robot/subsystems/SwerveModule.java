@@ -36,7 +36,6 @@ public class SwerveModule {
     private SparkPIDController angle_controller;
     private SparkPIDController drive_controller;
 
-
     public SwerveModule(int module_number, SwerveModuleConstants module_constants) {
 
         this.module_number = module_number;
