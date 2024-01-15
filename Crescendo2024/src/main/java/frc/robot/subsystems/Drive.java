@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 // FIRST imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -71,20 +70,20 @@ public class Drive extends SubsystemBase {
     this.rear_left_steer_PIDController = this.rear_left_steer.getPIDController();
     this.rear_right_steer_PIDController = this.rear_right_steer.getPIDController();
 
-    this.front_left_steer_PIDController.setP(Constants.DriveConstants.steer_kP);
-    this.front_right_steer_PIDController.setP(Constants.DriveConstants.steer_kP);
-    this.rear_left_steer_PIDController.setP(Constants.DriveConstants.steer_kP);
-    this.rear_right_steer_PIDController.setP(Constants.DriveConstants.steer_kP);
+    // this.front_left_steer_PIDController.setP(Constants.DriveConstants.steer_kP);
+    // this.front_right_steer_PIDController.setP(Constants.DriveConstants.steer_kP);
+    // this.rear_left_steer_PIDController.setP(Constants.DriveConstants.steer_kP);
+    // this.rear_right_steer_PIDController.setP(Constants.DriveConstants.steer_kP);
 
-    this.front_left_steer_PIDController.setI(Constants.DriveConstants.steer_kI);
-    this.front_right_steer_PIDController.setI(Constants.DriveConstants.steer_kI);
-    this.rear_left_steer_PIDController.setI(Constants.DriveConstants.steer_kI);
-    this.rear_right_steer_PIDController.setI(Constants.DriveConstants.steer_kI);
+    // this.front_left_steer_PIDController.setI(Constants.DriveConstants.steer_kI);
+    // this.front_right_steer_PIDController.setI(Constants.DriveConstants.steer_kI);
+    // this.rear_left_steer_PIDController.setI(Constants.DriveConstants.steer_kI);
+    // this.rear_right_steer_PIDController.setI(Constants.DriveConstants.steer_kI);
 
-    this.front_left_steer_PIDController.setD(Constants.DriveConstants.steer_kD);
-    this.front_right_steer_PIDController.setD(Constants.DriveConstants.steer_kD);
-    this.rear_left_steer_PIDController.setD(Constants.DriveConstants.steer_kD);
-    this.rear_right_steer_PIDController.setD(Constants.DriveConstants.steer_kD);
+    // this.front_left_steer_PIDController.setD(Constants.DriveConstants.steer_kD);
+    // this.front_right_steer_PIDController.setD(Constants.DriveConstants.steer_kD);
+    // this.rear_left_steer_PIDController.setD(Constants.DriveConstants.steer_kD);
+    // this.rear_right_steer_PIDController.setD(Constants.DriveConstants.steer_kD);
   
   }
 
