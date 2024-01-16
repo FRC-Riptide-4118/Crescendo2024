@@ -71,19 +71,19 @@ public final class Constants {
   }
 
   public static class SwerveConstants {
-
+    
     public static final boolean angle_invert = false;
     public static final boolean drive_invert = false;
 
     public static final IdleMode angle_idle_mode = IdleMode.kBrake;
     public static final IdleMode drive_idle_mode = IdleMode.kBrake;
 
-    public static final double angle_kP = 1;
+    public static final double angle_kP = 0.1;
     public static final double angle_kI = 0;
     public static final double angle_kD = 0;
     public static final double angle_kFF = 0;
 
-    public static final double drive_kP = 1;
+    public static final double drive_kP = 0.1;
     public static final double drive_kI = 0;
     public static final double drive_kD = 0;
     public static final double drive_kFF = 0;
@@ -95,6 +95,10 @@ public final class Constants {
     public static final double wheel_base = Units.inchesToMeters(1.0);
     public static final double track_width = Units.inchesToMeters(1.0);
 
+    /* Swerve Profiling Values */
+    public static final double maxSpeed = 4.5; // meters per second
+    public static final double maxAngularVelocity = 11.5;
+
     public static final SwerveDriveKinematics swerve_kinematics = new SwerveDriveKinematics(
       new Translation2d(wheel_base / 2.0, track_width / 2.0),
       new Translation2d(wheel_base / 2.0, -track_width / 2.0),
@@ -103,10 +107,10 @@ public final class Constants {
     );
 
     public static final SwerveModuleConstants[] module_constants = new SwerveModuleConstants[]{
-      new SwerveModuleConstants(0, 4, Rotation2d.fromDegrees(0.0)),
-      new SwerveModuleConstants(1, 5, Rotation2d.fromDegrees(0.0)),
-      new SwerveModuleConstants(2, 6, Rotation2d.fromDegrees(0.0)),
-      new SwerveModuleConstants(3, 7, Rotation2d.fromDegrees(0.0)),
+      new SwerveModuleConstants(5, 1, Rotation2d.fromDegrees(0.0)),
+      new SwerveModuleConstants(6, 2, Rotation2d.fromDegrees(0.0)),
+      new SwerveModuleConstants(7, 3, Rotation2d.fromDegrees(0.0)),
+      new SwerveModuleConstants(8, 4, Rotation2d.fromDegrees(0.0)),
     };
 
   }
@@ -114,6 +118,7 @@ public final class Constants {
   public static class ControllerConstants {
 
     public static final int driver_controller_id = 0;
+    public static final double stickDeadband = 0.1;
 
   }
 

@@ -22,10 +22,12 @@ import edu.wpi.first.wpilibj.XboxController;
 
 // Subsystems
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.SwerveDrive;
 import frc.robot.Constants.DriveConstants.MotorPosition;
 
 // Commands
 import frc.robot.commands.Reset;
+import frc.robot.commands.TeleOpSwerve;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -36,21 +38,10 @@ import frc.robot.commands.Reset;
 public class RobotContainer {
 
   // Subsystems
-  private final Drive drive = new Drive(); 
+  private final SwerveDrive s_SwerveDrive = new SwerveDrive();
 
   // Commands
   InstantCommand do_nothing = new InstantCommand( () -> {} );
-
-  // Drive Controls
-  private final int translationAxis = XboxController.Axis.kLeftY.value;
-  private final int strafeAxis      = XboxController.Axis.kLeftY.value;
-  private final int rotationAxis    = XboxController.Axis.kRightX.value;
-  
-  RunCommand turn_test = new RunCommand(
-    () -> {this.drive.turn_wheel_to_angle(MotorPosition.C_FRONT_RIGHT_STEER, 90);}, 
-    drive);
-  
-    Reset reset_command = new Reset(this.drive);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
@@ -59,39 +50,13 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, IO devices, and commands. */
   public RobotContainer() {
 
-    // Shuffleboard
-    // Shuffleboard.getTab("Game").addDouble("ENCODER", 
-    // () -> {return this.drive.get_integrated_encoder_angle(MotorPosition.C_FRONT_RIGHT_STEER); });
-
-    // Shuffleboard.getTab("Game").addDouble("CONTROLLER ANGLE",
-    // () -> {return 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()); });
-
-    // SmartDashboard.putData("RESET", reset_command); 
-
-    // Set Default Commands (WITHOUT SWERVE DRIVE)
-    // this.drive.setDefaultCommand(
-
-    //   Commands.run(
-
-    //     () -> { 
-
-    //       // this.drive.drive_motor(Constants.DriveConstants.MotorPosition.C_FRONT_LEFT_DRIVE, this.driverController.getLeftY());
-    //       // this.drive.drive_motor(Constants.DriveConstants.MotorPosition.C_FRONT_RIGHT_DRIVE, this.driverController.getLeftY());
-    //       // this.drive.drive_motor(Constants.DriveConstants.MotorPosition.C_REAR_LEFT_DRIVE, this.driverController.getLeftY());
-    //       // this.drive.drive_motor(Constants.DriveConstants.MotorPosition.C_REAR_RIGHT_DRIVE, this.driverController.getLeftY());
-
-    //       this.drive.turn_wheel_to_angle(MotorPosition.C_FRONT_LEFT_STEER, 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()));
-    //       this.drive.turn_wheel_to_angle(MotorPosition.C_FRONT_RIGHT_STEER, 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()));
-    //       this.drive.turn_wheel_to_angle(MotorPosition.C_REAR_LEFT_STEER, 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()));
-    //       this.drive.turn_wheel_to_angle(MotorPosition.C_REAR_RIGHT_STEER, 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()));
-
-    //     },
-        
-    //     this.drive
-
-    //   )
-
-    // );
+    s_SwerveDrive.setDefaultCommand(
+      new TeleOpSwerve(
+      s_SwerveDrive, 
+      () -> driverController.getLeftY(), 
+      () -> driverController.getLeftX(), 
+      () -> driverController.getRightX(), () -> true)
+    );
 
     // Configure the trigger bindings
     configureBindings();
@@ -107,12 +72,6 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-
-    this.driverController
-    .a()
-    .whileTrue(
-        turn_test
-      );
 
   }
 

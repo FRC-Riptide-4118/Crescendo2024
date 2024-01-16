@@ -46,11 +46,12 @@ public class SwerveModule {
         this.angle_controller = this.angle_motor.getPIDController();
         this.configAngleMotor();
 
-
         this.drive_motor = new CANSparkMax(module_constants.drive_motor_id, MotorType.kBrushless);
         this.drive_encoder = this.drive_motor.getEncoder();
         this.drive_controller = this.drive_motor.getPIDController();
         this.configDriveMotor();
+
+        this.prev_angle = this.getState().angle;
 
     }
 
@@ -61,6 +62,7 @@ public class SwerveModule {
         this.angle_motor.setIdleMode(SwerveConstants.angle_idle_mode);
 
         this.angle_encoder.setPositionConversionFactor(DriveConstants.DEGREES_PER_TICK);
+        this.angle_encoder.setPosition(0.0);
 
         this.angle_controller.setP(SwerveConstants.angle_kP);
         this.angle_controller.setI(SwerveConstants.angle_kI);
@@ -69,7 +71,6 @@ public class SwerveModule {
 
         this.angle_motor.enableVoltageCompensation(SwerveConstants.voltage_comp);
         this.angle_motor.burnFlash();
-        // reset to absolute?
 
     }
 
@@ -120,11 +121,13 @@ public class SwerveModule {
 
     public void setAngle(SwerveModuleState desired_state) {
    
-        // save previous angle?
+        Rotation2d angle;
         if (Math.abs(desired_state.speedMetersPerSecond) <= SwerveConstants.max_speed * 0.01)
-            return;
-        Rotation2d angle = desired_state.angle;
+            angle = this.prev_angle;
+        else
+            angle = desired_state.angle;
         this.angle_controller.setReference(angle.getDegrees(), ControlType.kPosition);
+        this.prev_angle = angle;
 
     }
 
