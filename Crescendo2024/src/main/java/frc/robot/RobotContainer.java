@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // Subsystems
 import frc.robot.subsystems.Drive;
+import frc.robot.Constants.DriveConstants.MotorPosition;
 
 // Commands
 import frc.robot.commands.Reset;
@@ -39,7 +40,7 @@ public class RobotContainer {
   InstantCommand do_nothing = new InstantCommand( () -> {} );
   
   RunCommand turn_test = new RunCommand(
-    () -> {this.drive.turn_wheel_to_angle(Constants.DriveConstants.MotorPosition.C_FRONT_RIGHT_STEER, 90);}, 
+    () -> {this.drive.turn_wheel_to_angle(MotorPosition.C_FRONT_RIGHT_STEER, 90);}, 
     drive);
   
     Reset reset_command = new Reset(this.drive);
@@ -53,7 +54,7 @@ public class RobotContainer {
 
     // Shuffleboard
     Shuffleboard.getTab("Game").addDouble("ENCODER", 
-    () -> {return this.drive.get_integrated_encoder_angle(Constants.DriveConstants.MotorPosition.C_FRONT_RIGHT_STEER); });
+    () -> {return this.drive.get_integrated_encoder_angle(MotorPosition.C_FRONT_RIGHT_STEER); });
 
     Shuffleboard.getTab("Game").addDouble("CONTROLLER ANGLE",
     () -> {return 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()); });
@@ -72,10 +73,10 @@ public class RobotContainer {
           // this.drive.drive_motor(Constants.DriveConstants.MotorPosition.C_REAR_LEFT_DRIVE, this.driverController.getLeftY());
           // this.drive.drive_motor(Constants.DriveConstants.MotorPosition.C_REAR_RIGHT_DRIVE, this.driverController.getLeftY());
 
-          this.drive.turn_wheel_to_angle(Constants.DriveConstants.MotorPosition.C_FRONT_LEFT_STEER, 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()));
-          this.drive.turn_wheel_to_angle(Constants.DriveConstants.MotorPosition.C_FRONT_RIGHT_STEER, 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()));
-          this.drive.turn_wheel_to_angle(Constants.DriveConstants.MotorPosition.C_REAR_LEFT_STEER, 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()));
-          this.drive.turn_wheel_to_angle(Constants.DriveConstants.MotorPosition.C_REAR_RIGHT_STEER, 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()));
+          this.drive.turn_wheel_to_angle(MotorPosition.C_FRONT_LEFT_STEER, 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()));
+          this.drive.turn_wheel_to_angle(MotorPosition.C_FRONT_RIGHT_STEER, 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()));
+          this.drive.turn_wheel_to_angle(MotorPosition.C_REAR_LEFT_STEER, 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()));
+          this.drive.turn_wheel_to_angle(MotorPosition.C_REAR_RIGHT_STEER, 180+Constants.DEG_PER_RAD*Math.atan2(this.driverController.getLeftY(), this.driverController.getLeftX()));
 
         },
         
