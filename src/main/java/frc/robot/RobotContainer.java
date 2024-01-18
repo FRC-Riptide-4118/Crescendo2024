@@ -50,6 +50,10 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, IO devices, and commands. */
   public RobotContainer() {
 
+    // Shuffleboard
+    Shuffleboard.getTab("Game").addDouble("ENCODER",
+    () -> {return this.s_SwerveDrive.get_encoder(); });
+
     s_SwerveDrive.setDefaultCommand(
       new TeleOpSwerve(
       s_SwerveDrive, 

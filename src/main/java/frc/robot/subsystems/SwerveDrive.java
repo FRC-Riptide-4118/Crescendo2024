@@ -16,6 +16,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 
 // REV imports
+import com.revrobotics.SparkAbsoluteEncoder;
 
 // CTRE imports
 import com.ctre.phoenix.sensors.PigeonIMU;
@@ -31,6 +32,7 @@ public class SwerveDrive extends SubsystemBase {
 
   private SwerveModule[] swerve_modules;
   private SwerveModulePosition[] swerve_module_positions;
+  private SparkAbsoluteEncoder[] absolute_encoder;
 
   private PigeonIMU imu;
 
@@ -70,6 +72,12 @@ public class SwerveDrive extends SubsystemBase {
 
     }
 
+  }
+
+  public double get_encoder() {
+
+    return this.absolute_encoder = new SparkAbsoluteEncoder[DriveConstants.front_right_steer_id];
+    
   }
 
   public void zero_imu() {
