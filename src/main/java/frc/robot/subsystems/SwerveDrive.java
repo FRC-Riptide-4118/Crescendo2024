@@ -24,6 +24,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 // Custom imports
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.EncoderConstants;
 import frc.robot.Constants.SwerveConstants;
 // import frc.robot.Constants.;
 
@@ -72,12 +73,19 @@ public class SwerveDrive extends SubsystemBase {
 
     }
 
+    Shuffleboard.getTab("Game").addDouble
+      (
+        "ENCODER", 
+        get_encoder()
+      );
+
   }
 
-  public double get_encoder() {
+  public SparkAbsoluteEncoder[] get_encoder() {
 
-    return this.absolute_encoder = new SparkAbsoluteEncoder[DriveConstants.front_right_steer_id];
-    
+    this.absolute_encoder = new SparkAbsoluteEncoder[EncoderConstants.front_right_encoder_id];
+    return this.absolute_encoder;
+
   }
 
   public void zero_imu() {

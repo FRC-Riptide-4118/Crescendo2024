@@ -37,6 +37,7 @@ public final class Constants {
 
     };
 
+    // Motors
     public static final int front_left_drive_id  = 1;
     public static final int front_right_drive_id = 2;
     public static final int rear_left_drive_id   = 3;
@@ -51,6 +52,16 @@ public final class Constants {
 
     public static final double TICKS_PER_ROTATION = 21.64;
     public static final double DEGREES_PER_TICK = 360 / TICKS_PER_ROTATION;
+    
+  }
+
+  public static class EncoderConstants {
+
+    // Encoders
+    public static final int front_left_encoder_id  = 5;
+    public static final int front_right_encoder_id = 6;
+    public static final int rear_left_encoder_id   = 7;
+    public static final int rear_right_encoder_id  = 8;
     
   }
 

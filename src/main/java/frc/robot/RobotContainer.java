@@ -51,8 +51,6 @@ public class RobotContainer {
   public RobotContainer() {
 
     // Shuffleboard
-    Shuffleboard.getTab("Game").addDouble("ENCODER",
-    () -> {return this.s_SwerveDrive.get_encoder(); });
 
     s_SwerveDrive.setDefaultCommand(
       new TeleOpSwerve(
