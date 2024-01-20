@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -24,7 +25,6 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 // Custom imports
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.EncoderConstants;
 import frc.robot.Constants.SwerveConstants;
 // import frc.robot.Constants.;
 
@@ -33,7 +33,6 @@ public class SwerveDrive extends SubsystemBase {
 
   private SwerveModule[] swerve_modules;
   private SwerveModulePosition[] swerve_module_positions;
-  private SparkAbsoluteEncoder[] absolute_encoder;
 
   private PigeonIMU imu;
 
@@ -72,19 +71,6 @@ public class SwerveDrive extends SubsystemBase {
       );
 
     }
-
-    Shuffleboard.getTab("Game").addDouble
-      (
-        "ENCODER", 
-        get_encoder()
-      );
-
-  }
-
-  public SparkAbsoluteEncoder[] get_encoder() {
-
-    this.absolute_encoder = new SparkAbsoluteEncoder[EncoderConstants.front_right_encoder_id];
-    return this.absolute_encoder;
 
   }
 

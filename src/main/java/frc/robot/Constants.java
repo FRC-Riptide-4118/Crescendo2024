@@ -55,16 +55,6 @@ public final class Constants {
     
   }
 
-  public static class EncoderConstants {
-
-    // Encoders
-    public static final int front_left_encoder_id  = 5;
-    public static final int front_right_encoder_id = 6;
-    public static final int rear_left_encoder_id   = 7;
-    public static final int rear_right_encoder_id  = 8;
-    
-  }
-
   public static class SwerveModuleConstants {
 
     public int angle_motor_id;
