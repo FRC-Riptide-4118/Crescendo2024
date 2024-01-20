@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 // FIRST imports
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Encoder;
 
 // REV imports
 import com.revrobotics.CANSparkMax;
@@ -11,9 +12,12 @@ import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkBase.ControlType;
-
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
 // Pheonix imports
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
+import com.ctre.phoenix6.signals.SensorDirectionValue;
 
 // Custom imports
 import frc.robot.Constants;
@@ -35,6 +39,7 @@ public class SwerveModule {
     private CANSparkMax drive_motor;
 
     private CANcoder CANCoder;
+    // private StatusSignal pos;
 
     private RelativeEncoder angle_encoder;
     private RelativeEncoder drive_encoder;
@@ -57,9 +62,18 @@ public class SwerveModule {
         this.drive_controller = this.drive_motor.getPIDController();
         this.configDriveMotor();
 
+        this.CANCoder = new CANcoder(module_constants.CANCoder_id);
+        // this.pos = this.CANCoder.getAbsolutePosition();
+        this.configCANcoder();
+
         this.prev_angle = this.getState().angle;
 
     }
+
+    private void resetToAbsolute() {
+        double absolutePosition = getCANCoder().getDegrees() - angleOffset.getDegrees();
+        angle_encoder.setPosition(absolutePosition);
+      }
 
     private void configAngleMotor() {
 
@@ -80,8 +94,15 @@ public class SwerveModule {
 
     }
 
-    private void CANcoder() {
-        this.CANCoder.
+    private void configCANcoder() {
+        CANcoderConfiguration configs = new CANcoderConfiguration();
+
+        configs.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
+        configs.MagnetSensor.MagnetOffset = 0.26;
+        configs.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
+
+        this.CANCoder.getConfigurator().apply(configs);
+
     }
 
     private void configDriveMotor() {
@@ -152,5 +173,9 @@ public class SwerveModule {
         return new SwerveModuleState(this.drive_encoder.getVelocity(), this.getAngle());
 
     }
+
+    public Rotation2d getCANCoder() {
+        return Rotation2d.fromDegrees(CANCoder.getAbsolutePosition().getValue());
+      }
 
 }

@@ -51,13 +51,22 @@ public final class Constants {
     public static final int rear_left_steer_id      = 7;
     public static final int rear_right_steer_id     = 8;
 
+    // CANCoders
     public static final int front_left_CANcoder_id  = 5;
     public static final int front_right_CANcoder_id = 6;
     public static final int rear_left_CANcoder_id   = 7;
     public static final int rear_right_CANcoder_id  = 8;
 
+    // Angle Offset
+    public static final double front_left_angle_offset  = 0;
+    public static final double front_right_angle_offset = 0;
+    public static final double rear_left_angle_offset   = 0;
+    public static final double rear_right_angle_offset  = 0;
+
+    // Pigeon
     public static final int pigeon_id = 9;
 
+    // Math
     public static final double TICKS_PER_ROTATION = 21.64;
     public static final double DEGREES_PER_TICK = 360 / TICKS_PER_ROTATION;
     
