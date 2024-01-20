@@ -4,7 +4,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
-import com.revrobotics.AbsoluteEncoder;
 // REV imports
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -12,6 +11,9 @@ import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkBase.ControlType;
+
+// Pheonix imports
+import com.ctre.phoenix6.hardware.CANcoder;
 
 // Custom imports
 import frc.robot.Constants;
@@ -29,8 +31,10 @@ public class SwerveModule {
     private Rotation2d prev_angle;
     private Rotation2d angle_offset;
 
-    CANSparkMax angle_motor;
-    CANSparkMax drive_motor;
+    private CANSparkMax angle_motor;
+    private CANSparkMax drive_motor;
+
+    private CANcoder CANCoder;
 
     private RelativeEncoder angle_encoder;
     private RelativeEncoder drive_encoder;
@@ -74,6 +78,10 @@ public class SwerveModule {
         this.angle_motor.enableVoltageCompensation(SwerveConstants.voltage_comp);
         this.angle_motor.burnFlash();
 
+    }
+
+    private void CANcoder() {
+        this.CANCoder.
     }
 
     private void configDriveMotor() {

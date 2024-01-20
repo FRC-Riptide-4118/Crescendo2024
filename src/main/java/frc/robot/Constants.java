@@ -17,6 +17,9 @@ import com.revrobotics.CANSparkBase.IdleMode;
 // Java imports
 import java.util.*;
 
+// Pheonix imports
+import com.ctre.phoenix6.hardware.CANcoder;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -38,15 +41,20 @@ public final class Constants {
     };
 
     // Motors
-    public static final int front_left_drive_id  = 1;
-    public static final int front_right_drive_id = 2;
-    public static final int rear_left_drive_id   = 3;
-    public static final int rear_right_drive_id  = 4;
+    public static final int front_left_drive_id     = 1;
+    public static final int front_right_drive_id    = 2;
+    public static final int rear_left_drive_id      = 3;
+    public static final int rear_right_drive_id     = 4;
 
-    public static final int front_left_steer_id  = 5;
-    public static final int front_right_steer_id = 6;
-    public static final int rear_left_steer_id   = 7;
-    public static final int rear_right_steer_id  = 8;
+    public static final int front_left_steer_id     = 5;
+    public static final int front_right_steer_id    = 6;
+    public static final int rear_left_steer_id      = 7;
+    public static final int rear_right_steer_id     = 8;
+
+    public static final int front_left_CANcoder_id  = 5;
+    public static final int front_right_CANcoder_id = 6;
+    public static final int rear_left_CANcoder_id   = 7;
+    public static final int rear_right_CANcoder_id  = 8;
 
     public static final int pigeon_id = 9;
 
@@ -59,12 +67,14 @@ public final class Constants {
 
     public int angle_motor_id;
     public int drive_motor_id;
+    public int CANCoder_id;
     public Rotation2d angle_offset;
 
-    public SwerveModuleConstants(int angle_motor_id, int drive_motor_id, Rotation2d angle_offset) {
+    public SwerveModuleConstants(int angle_motor_id, int drive_motor_id, int CANCoder_id, Rotation2d angle_offset) {
 
       this.angle_motor_id = angle_motor_id;
       this.drive_motor_id = drive_motor_id;
+      this.CANCoder_id = CANCoder_id;
       this.angle_offset = angle_offset;
 
     }
@@ -107,11 +117,12 @@ public final class Constants {
       new Translation2d(-wheel_base / 2.0, -track_width / 2.0)
     );
 
+    // ADD IN CANCODER IDS!!!
     public static final SwerveModuleConstants[] module_constants = new SwerveModuleConstants[]{
-      new SwerveModuleConstants(5, 1, Rotation2d.fromDegrees(0.0)),
-      new SwerveModuleConstants(6, 2, Rotation2d.fromDegrees(0.0)),
-      new SwerveModuleConstants(7, 3, Rotation2d.fromDegrees(0.0)),
-      new SwerveModuleConstants(8, 4, Rotation2d.fromDegrees(0.0)),
+      new SwerveModuleConstants(DriveConstants.front_left_steer_id, DriveConstants.front_left_drive_id, DriveConstants.front_left_CANcoder_id,  Rotation2d.fromDegrees(0.0)),
+      new SwerveModuleConstants(DriveConstants.front_right_steer_id, DriveConstants.front_right_drive_id, DriveConstants.front_right_CANcoder_id,  Rotation2d.fromDegrees(0.0)),
+      new SwerveModuleConstants(DriveConstants.rear_left_steer_id, DriveConstants.rear_left_drive_id, DriveConstants.rear_left_CANcoder_id,  Rotation2d.fromDegrees(0.0)),
+      new SwerveModuleConstants(DriveConstants.rear_right_steer_id, DriveConstants.rear_right_drive_id, DriveConstants.rear_right_CANcoder_id, Rotation2d.fromDegrees(0.0)),
     };
 
   }
