@@ -128,10 +128,10 @@ public final class Constants {
 
     // ADD IN CANCODER IDS!!!
     public static final SwerveModuleConstants[] module_constants = new SwerveModuleConstants[]{
-      new SwerveModuleConstants(DriveConstants.front_left_steer_id, DriveConstants.front_left_drive_id, DriveConstants.front_left_CANcoder_id,  Rotation2d.fromDegrees(0.0)),
-      new SwerveModuleConstants(DriveConstants.front_right_steer_id, DriveConstants.front_right_drive_id, DriveConstants.front_right_CANcoder_id,  Rotation2d.fromDegrees(0.0)),
-      new SwerveModuleConstants(DriveConstants.rear_left_steer_id, DriveConstants.rear_left_drive_id, DriveConstants.rear_left_CANcoder_id,  Rotation2d.fromDegrees(0.0)),
-      new SwerveModuleConstants(DriveConstants.rear_right_steer_id, DriveConstants.rear_right_drive_id, DriveConstants.rear_right_CANcoder_id, Rotation2d.fromDegrees(0.0)),
+      new SwerveModuleConstants(DriveConstants.front_left_steer_id, DriveConstants.front_left_drive_id, DriveConstants.front_left_CANcoder_id,  DriveConstants.front_left_angle_offset),
+      new SwerveModuleConstants(DriveConstants.front_right_steer_id, DriveConstants.front_right_drive_id, DriveConstants.front_right_CANcoder_id,  DriveConstants.front_right_angle_offset),
+      new SwerveModuleConstants(DriveConstants.rear_left_steer_id, DriveConstants.rear_left_drive_id, DriveConstants.rear_left_CANcoder_id,  DriveConstants.rear_right_angle_offset),
+      new SwerveModuleConstants(DriveConstants.rear_right_steer_id, DriveConstants.rear_right_drive_id, DriveConstants.rear_right_CANcoder_id, DriveConstants.rear_left_angle_offset),
     };
 
   }
