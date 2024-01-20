@@ -64,7 +64,7 @@ public final class Constants {
     public static final double rear_right_angle_offset  = 0;
 
     // Pigeon
-    public static final int pigeon_id = 9;
+    public static final int pigeon_id = 0;
 
     // Math
     public static final double TICKS_PER_ROTATION = 21.64;
@@ -97,6 +97,9 @@ public final class Constants {
 
     public static final IdleMode angle_idle_mode = IdleMode.kBrake;
     public static final IdleMode drive_idle_mode = IdleMode.kBrake;
+
+    public static final int angle_smart_current_limit = 20;
+    public static final int drive_smart_current_limit = 80;
 
     public static final double angle_kP = 0.1;
     public static final double angle_kI = 0;
