@@ -58,10 +58,10 @@ public final class Constants {
     public static final int rear_right_CANcoder_id  = 8;
 
     // Angle Offset
-    public static final double front_left_angle_offset  = 0;
-    public static final double front_right_angle_offset = 0;
-    public static final double rear_left_angle_offset   = 0;
-    public static final double rear_right_angle_offset  = 0;
+    public static final Rotation2d front_left_angle_offset  = Rotation2d.fromDegrees(0);
+    public static final Rotation2d front_right_angle_offset = Rotation2d.fromDegrees(0);
+    public static final Rotation2d rear_left_angle_offset   = Rotation2d.fromDegrees(0);
+    public static final Rotation2d rear_right_angle_offset  = Rotation2d.fromDegrees(0);
 
     // Pigeon
     public static final int pigeon_id = 0;
