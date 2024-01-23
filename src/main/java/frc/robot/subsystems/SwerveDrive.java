@@ -13,6 +13,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 
@@ -75,6 +76,14 @@ public class SwerveDrive extends SubsystemBase {
 
   }
 
+  public void setModuleStates(SwerveModuleState[] desiredStates) {
+    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, SwerveConstants.maxSpeed);
+  }
+
+  public Pose2d getPose() {
+    return swerve_odometry.getPoseMeters();
+  }
+
   public void zero_imu() {
 
     this.imu.setYaw(0);
@@ -87,6 +96,9 @@ public class SwerveDrive extends SubsystemBase {
 
   }
 
+  public void resetOdometry(Pose2d pose) {
+    swerve_odometry.resetPosition(get_yaw(), swerve_module_positions, pose);
+  }
   public void drive(
       Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
     SwerveModuleState[] swerveModuleStates =
