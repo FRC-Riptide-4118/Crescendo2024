@@ -67,9 +67,14 @@ public final class Constants {
     // Pigeon
     public static final int pigeon_id = 0;
 
+    public static final double driveGearRatio = (6.75 / 1.0); // 6.75:1
+    public static final double angleGearRatio = (12.8 / 1.0); // 12.8:1
+
     // Math
     public static final double TICKS_PER_ROTATION = 21.64;
     public static final double DEGREES_PER_TICK = 360 / TICKS_PER_ROTATION;
+    public static final double wheelDiameter = Units.inchesToMeters(4.0);
+    public static final double wheelCircumference = wheelDiameter * Math.PI;
     
   }
 
@@ -102,7 +107,11 @@ public final class Constants {
     public static final int angle_smart_current_limit = 20;
     public static final int drive_smart_current_limit = 80;
 
-
+  /* Drive Motor Conversion Factors */
+    public static final double driveConversionPositionFactor =
+      (DriveConstants.wheelDiameter * Math.PI) / DriveConstants.driveGearRatio;
+    public static final double driveConversionVelocityFactor = driveConversionPositionFactor / 60.0;
+    public static final double angleConversionFactor = 360.0 / DriveConstants.angleGearRatio;
 
     public static final double angle_kP = 0.1;
     public static final double angle_kI = 0;

@@ -39,7 +39,7 @@ public class SwerveModule {
     private CANSparkMax drive_motor;
 
     private CANcoder CANCoder;
-    // private StatusSignal pos;
+    private StatusSignal pos;
 
     private RelativeEncoder angle_encoder;
     private RelativeEncoder drive_encoder;
@@ -63,14 +63,14 @@ public class SwerveModule {
         this.configDriveMotor();
 
         this.CANCoder = new CANcoder(module_constants.CANCoder_id);
-        // this.pos = this.CANCoder.getAbsolutePosition();
+        this.pos = this.CANCoder.getAbsolutePosition();
         this.configCANcoder();
 
         this.prev_angle = this.getState().angle;
 
     }
 
-    private void resetToAbsolute() {
+    public void resetToAbsolute() {
     double absolutePosition = getCANCoder().getDegrees() - angle_offset.getDegrees();
     angle_encoder.setPosition(absolutePosition);
     }
