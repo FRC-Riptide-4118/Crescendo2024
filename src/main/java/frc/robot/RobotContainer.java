@@ -36,27 +36,27 @@ import frc.robot.commands.TeleOpSwerve;
 public class RobotContainer {
 
   // Subsystems
-  private final SwerveDrive s_SwerveDrive = new SwerveDrive();
+  // private final SwerveDrive s_SwerveDrive = new SwerveDrive();
 
   // Commands
   InstantCommand do_nothing = new InstantCommand( () -> {} );
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController driverController =
-      new CommandXboxController(Constants.ControllerConstants.driver_controller_id);
+  // private final CommandXboxController driverController =
+  //     new CommandXboxController(Constants.ControllerConstants.driver_controller_id);
 
   /** The container for the robot. Contains subsystems, IO devices, and commands. */
   public RobotContainer() {
 
     // Shuffleboard
 
-    s_SwerveDrive.setDefaultCommand(
-      new TeleOpSwerve(
-      s_SwerveDrive, 
-      () -> driverController.getLeftY(), 
-      () -> driverController.getLeftX(), 
-      () -> driverController.getRightX(), () -> true)
-    );
+    // s_SwerveDrive.setDefaultCommand(
+    //   new TeleOpSwerve(
+    //   s_SwerveDrive, 
+    //   () -> driverController.getLeftY(), 
+    //   () -> driverController.getLeftX(), 
+    //   () -> driverController.getRightX(), () -> true)
+    // );
 
     // Configure the trigger bindings
     configureBindings();
