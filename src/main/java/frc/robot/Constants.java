@@ -148,7 +148,12 @@ public final class Constants {
       new SwerveModuleConstants(DriveConstants.rear_left_steer_id, DriveConstants.rear_left_drive_id, DriveConstants.rear_left_CANcoder_id,  DriveConstants.rear_right_angle_offset),
       new SwerveModuleConstants(DriveConstants.rear_right_steer_id, DriveConstants.rear_right_drive_id, DriveConstants.rear_right_CANcoder_id, DriveConstants.rear_left_angle_offset),
     };
+    
+  }
 
+  public static class ClimberConstants {
+    public static final int left_climber_id = 9;
+    public static final int right_climber_id = 10;
   }
 
   public static class ControllerConstants {
