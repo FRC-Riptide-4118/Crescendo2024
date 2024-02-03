@@ -1,34 +1,26 @@
+
+package frc.robot.subsystems;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import frc.robot.Constants.ClimberConstants;
+
 public class Climber extends SubsystemBase {
+
+  private CANSparkMax leftClimber;
+
   /** Creates a new ExampleSubsystem. */
   public Climber() {
-    this.left_climber_id.setInverted(true);
+    this.leftClimber = new CANSparkMax(ClimberConstants.left_climber_id, MotorType.kBrushless);
+    leftClimber.setInverted(true);
   }
 
-  /**
-   * Example command factory method.
-   *
-   * @return a command
-   */
-  public Command RunClimber() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-        });
-  }
-
-  /**
-   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
-   *
-   * @return value of some boolean subsystem state, such as a digital sensor.
-   */
-  public boolean ClimberOff() {
-    // Query some boolean state, such as a digital sensor.
-    return false;
+  public void Run(double speed) {
+    leftClimber.set(speed);
   }
 
   @Override

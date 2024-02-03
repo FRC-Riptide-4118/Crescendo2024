@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 // Subsystems
 import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.Climber;
 import frc.robot.Constants.DriveConstants.MotorPosition;
 
 // Commands
@@ -36,10 +37,12 @@ import frc.robot.commands.TeleOpSwerve;
 public class RobotContainer {
 
   // Subsystems
-  private final SwerveDrive s_SwerveDrive = new SwerveDrive();
+  // private final SwerveDrive s_SwerveDrive = new SwerveDrive();
+  private final Climber s_Climber = new Climber();
 
   // Commands
   InstantCommand do_nothing = new InstantCommand( () -> {} );
+  RunCommand run_climber = new RunCommand(() -> { this.s_Climber.Run(this.driverController.getLeftTriggerAxis()); }, this.s_Climber);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
@@ -50,14 +53,16 @@ public class RobotContainer {
 
     // Shuffleboard
 
-    s_SwerveDrive.setDefaultCommand(
-      new TeleOpSwerve(
-      s_SwerveDrive, 
-      () -> driverController.getLeftY(), 
-      () -> driverController.getLeftX(), 
-      () -> driverController.getRightX(),
-      () -> true)
-    );
+    // s_SwerveDrive.setDefaultCommand(
+    //   new TeleOpSwerve(
+    //   s_SwerveDrive, 
+    //   () -> driverController.getLeftY(), 
+    //   () -> driverController.getLeftX(), 
+    //   () -> driverController.getRightX(),
+    //   () -> true)
+    // );
+
+    s_Climber.setDefaultCommand( run_climber );
 
     // Configure the trigger bindings
     configureBindings();
