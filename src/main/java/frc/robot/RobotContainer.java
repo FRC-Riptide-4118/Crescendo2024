@@ -37,7 +37,7 @@ import frc.robot.commands.TeleOpSwerve;
 public class RobotContainer {
 
   // Subsystems
-  // private final SwerveDrive s_SwerveDrive = new SwerveDrive();
+  private final SwerveDrive s_SwerveDrive = new SwerveDrive();
   private final Climber s_Climber = new Climber();
 
   // Commands
@@ -53,14 +53,14 @@ public class RobotContainer {
 
     // Shuffleboard
 
-    // s_SwerveDrive.setDefaultCommand(
-    //   new TeleOpSwerve(
-    //   s_SwerveDrive, 
-    //   () -> driverController.getLeftY(), 
-    //   () -> driverController.getLeftX(), 
-    //   () -> driverController.getRightX(),
-    //   () -> true)
-    // );
+    s_SwerveDrive.setDefaultCommand(
+      new TeleOpSwerve(
+      s_SwerveDrive, 
+      () -> driverController.getLeftY(), 
+      () -> driverController.getLeftX(), 
+      () -> driverController.getRightX(),
+      () -> true)
+    );
 
     s_Climber.setDefaultCommand( run_climber );
 
