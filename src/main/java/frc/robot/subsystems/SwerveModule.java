@@ -178,4 +178,8 @@ public class SwerveModule {
         return Rotation2d.fromDegrees(CANCoder.getAbsolutePosition().getValue());
       }
 
+    public Double getCANDouble() {
+        return CANCoder.getAbsolutePosition().getValue();
+    }
+
 }

@@ -66,6 +66,8 @@ public class SwerveDrive extends SubsystemBase {
         "Mod" + mod.module_number + " Speed", () -> mod.getState().speedMetersPerSecond
       );
 
+      Shuffleboard.getTab("Game").addDouble(
+        "Mod" + mod.module_number + "Angle", () -> mod.getCANDouble());
     }
 
   }

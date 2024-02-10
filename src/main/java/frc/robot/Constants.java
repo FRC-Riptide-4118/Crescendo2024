@@ -53,10 +53,10 @@ public final class Constants {
     public static final int rear_right_steer_id     = 8;
 
     // CANCoders
-    public static final int front_left_CANcoder_id  = 5;
-    public static final int front_right_CANcoder_id = 6;
-    public static final int rear_left_CANcoder_id   = 7;
-    public static final int rear_right_CANcoder_id  = 8;
+    public static final int front_left_CANcoder_id  = 0;
+    public static final int front_right_CANcoder_id = 3;
+    public static final int rear_left_CANcoder_id   = 1;
+    public static final int rear_right_CANcoder_id  = 2;
 
     // Angle Offset
     public static final Rotation2d front_left_angle_offset  = Rotation2d.fromDegrees(0);
