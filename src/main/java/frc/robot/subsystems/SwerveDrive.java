@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // CTRE imports
 import com.ctre.phoenix.sensors.PigeonIMU;
@@ -56,6 +57,10 @@ public class SwerveDrive extends SubsystemBase {
       new SwerveModule(3, SwerveConstants.module_constants[3])
     };
 
+    Shuffleboard.getTab("Game").addDouble(
+      "Pigeon Angle", () -> this.get_yaw().getDegrees()
+    );
+
     for (SwerveModule mod : this.swerve_modules) {
 
       Shuffleboard.getTab("Game").addDouble(
@@ -67,7 +72,9 @@ public class SwerveDrive extends SubsystemBase {
       );
 
       Shuffleboard.getTab("Game").addDouble(
-        "Mod" + mod.module_number + "CANAngle", () -> mod.getCANDouble());
+        "Mod" + mod.module_number + "CANAngle", () -> mod.getCANCoder().getDegrees()
+      );
+
     }
 
   }
