@@ -161,7 +161,7 @@ public class SwerveModule {
     public void setAngle(SwerveModuleState desired_state) {
    
         Rotation2d angle = 
-            (Math.abs(desired_state.speedMetersPerSecond) <= SwerveConstants.max_speed * 0.01)
+            (Math.abs(desired_state.speedMetersPerSecond) <= SwerveConstants.max_speed * 0.05)
                 ? this.prev_angle
                 : desired_state.angle;
 
