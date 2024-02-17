@@ -50,6 +50,7 @@ public class SwerveDrive extends SubsystemBase {
 
     this.swerve_odometry = new SwerveDriveOdometry(SwerveConstants.swerve_kinematics, this.get_yaw(), this.swerve_module_positions);
 
+    // DON'T MIX UP NUMBERS IT IS CURRENTLY RIGHT IN SHUFFLEBOARD
     this.swerve_modules = new SwerveModule[]{
       new SwerveModule(0, SwerveConstants.module_constants[0]),
       new SwerveModule(1, SwerveConstants.module_constants[1]),
@@ -72,7 +73,7 @@ public class SwerveDrive extends SubsystemBase {
       );
 
       Shuffleboard.getTab("Game").addDouble(
-        "Mod" + mod.module_number + "CANAngle", () -> mod.getCANCoder().getDegrees()
+        "Mod" + mod.module_number + "CANAngle", () -> mod.getCANDouble()
       );
 
     }

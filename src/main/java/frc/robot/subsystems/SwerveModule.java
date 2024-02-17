@@ -54,7 +54,7 @@ public class SwerveModule {
         this.angle_offset = module_constants.angle_offset;
 
         this.can_coder = new CANcoder(module_constants.CANCoder_id);
-        this.configCANcoder();
+        // this.configCANcoder();
         this.pos = this.can_coder.getAbsolutePosition();
 
         this.angle_motor = new CANSparkMax(module_constants.angle_motor_id, MotorType.kBrushless);
@@ -72,7 +72,7 @@ public class SwerveModule {
     }
 
     public void resetToAbsolute() {
-        double absolutePosition = getCANCoder().getDegrees() - angle_offset.getDegrees();
+        Double absolutePosition = getCANDouble();
         angle_encoder.setPosition(absolutePosition);
     }
 
@@ -94,19 +94,19 @@ public class SwerveModule {
         this.angle_motor.enableVoltageCompensation(SwerveConstants.voltage_comp);
         this.angle_motor.burnFlash();
 
-        // resetToAbsolute();
+        resetToAbsolute();
     }
 
-    private void configCANcoder() {
-        CANcoderConfiguration configs = new CANcoderConfiguration();
+    // private void configCANcoder() {
+    //     CANcoderConfiguration configs = new CANcoderConfiguration();
 
-        configs.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
-        // configs.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0To1;
-        configs.MagnetSensor.MagnetOffset = 0.26;
-        configs.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
+    //     configs.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
+    //     // configs.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0To1;
+    //     configs.MagnetSensor.MagnetOffset += 0;
+    //     configs.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
 
-        this.can_coder.getConfigurator().apply(configs);
-    }
+    //     this.can_coder.getConfigurator().apply(configs);
+    // }
 
     private void configDriveMotor() {
 
@@ -182,11 +182,11 @@ public class SwerveModule {
     }
 
     public Rotation2d getCANCoder() {
-        return Rotation2d.fromDegrees(this.can_coder.getAbsolutePosition().getValue());
+        return Rotation2d.fromDegrees(this.can_coder.getAbsolutePosition().getValue() * 360);
     }
 
     public Double getCANDouble() {
-        return this.can_coder.getAbsolutePosition().getValue();
+        return (this.can_coder.getAbsolutePosition().getValue() * 360);
     }
 
 }

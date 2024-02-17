@@ -54,9 +54,9 @@ public final class Constants {
 
     // CANCoders
     public static final int front_left_CANcoder_id  = 0;
-    public static final int front_right_CANcoder_id = 3;
-    public static final int rear_left_CANcoder_id   = 1;
-    public static final int rear_right_CANcoder_id  = 2;
+    public static final int front_right_CANcoder_id = 1;
+    public static final int rear_left_CANcoder_id   = 2;
+    public static final int rear_right_CANcoder_id  = 3;
 
     // Angle Offset
     public static final Rotation2d front_left_angle_offset  = Rotation2d.fromDegrees(0);
@@ -68,10 +68,10 @@ public final class Constants {
     public static final int pigeon_id = 0;
 
     public static final double driveGearRatio = (6.75 / 1.0); // 6.75:1
-    public static final double angleGearRatio = (12.8 / 1.0); // 12.8:1
+    public static final double angleGearRatio = (6.75*3 / 1.0); // 12.8:1
 
     // Math
-    public static final double TICKS_PER_ROTATION = 21.64;
+    public static final double TICKS_PER_ROTATION = 42;
     public static final double DEGREES_PER_TICK = 360 / TICKS_PER_ROTATION;
     public static final double wheelDiameter = Units.inchesToMeters(4.0);
     public static final double wheelCircumference = wheelDiameter * Math.PI;
@@ -111,16 +111,18 @@ public final class Constants {
     public static final double driveConversionPositionFactor =
       (DriveConstants.wheelDiameter * Math.PI) / DriveConstants.driveGearRatio;
     public static final double driveConversionVelocityFactor = driveConversionPositionFactor / 60.0;
-    public static final double angleConversionFactor = 360.0 / DriveConstants.angleGearRatio;
+
+    // public static final double angleConversionFactor = 360.0 / (DriveConstants.TICKS_PER_ROTATION * DriveConstants.angleGearRatio);
+    public static final double angleConversionFactor = 360/ DriveConstants.angleGearRatio;
 
     public static final double angle_kP = 0.1;
-    public static final double angle_kI = 0;
-    public static final double angle_kD = 0;
+    public static final double angle_kI = 0.00;
+    public static final double angle_kD = 0.0;
     public static final double angle_kFF = 0;
 
     public static final double drive_kP = 0.1;
-    public static final double drive_kI = 0;
-    public static final double drive_kD = 0;
+    public static final double drive_kI = 0.00;
+    public static final double drive_kD = 0.0;
     public static final double drive_kFF = 0;
 
     public static final double max_speed = 4.5;

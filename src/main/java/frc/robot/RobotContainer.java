@@ -43,6 +43,7 @@ public class RobotContainer {
   // Commands
   InstantCommand do_nothing = new InstantCommand( () -> {} );
   RunCommand run_climber = new RunCommand(() -> { this.s_Climber.Run(this.driverController.getLeftTriggerAxis()); }, this.s_Climber);
+  // RunCommand reset_encoders = new RunCommand(() -> {this.s_SwerveDrive.}, null)
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
