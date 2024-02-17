@@ -94,7 +94,7 @@ public class SwerveModule {
         this.angle_motor.enableVoltageCompensation(SwerveConstants.voltage_comp);
         this.angle_motor.burnFlash();
 
-        resetToAbsolute();
+        // resetToAbsolute();
     }
 
     private void configCANcoder() {
