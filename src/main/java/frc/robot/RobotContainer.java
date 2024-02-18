@@ -42,7 +42,7 @@ public class RobotContainer {
 
   // Commands
   InstantCommand do_nothing = new InstantCommand( () -> {} );
-  RunCommand run_climber = new RunCommand(() -> { this.s_Climber.Run(this.driverController.getLeftTriggerAxis()); }, this.s_Climber);
+  RunCommand run_climber = new RunCommand(() -> { this.s_Climber.Run(this.driverController.getRightY()); }, this.s_Climber);
   // RunCommand reset_encoders = new RunCommand(() -> {this.s_SwerveDrive.}, null)
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -63,7 +63,7 @@ public class RobotContainer {
       () -> true)
     );
 
-    s_Climber.setDefaultCommand( run_climber );
+    // s_Climber.setDefaultCommand( run_climber );
 
     // Configure the trigger bindings
     configureBindings();
