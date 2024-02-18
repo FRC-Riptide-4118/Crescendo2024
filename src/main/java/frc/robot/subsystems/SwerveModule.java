@@ -178,7 +178,7 @@ public class SwerveModule {
                 : desired_state.angle;
 
         this.angle_motor.setVoltage(
-                angle_controller.calculate(angle_encoder.getPosition(), desired_state.angle.getDegrees())
+                angle_controller.calculate(angle_encoder.getPosition(), angle.getDegrees())
             );
         this.prev_angle = angle;
 

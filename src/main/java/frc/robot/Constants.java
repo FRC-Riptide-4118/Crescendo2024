@@ -115,7 +115,7 @@ public final class Constants {
     // public static final double angleConversionFactor = 360.0 / (DriveConstants.TICKS_PER_ROTATION * DriveConstants.angleGearRatio);
     public static final double angleConversionFactor = 360/ DriveConstants.angleGearRatio;
 
-    public static final double angle_kP = 0.1;
+    public static final double angle_kP = 0.3;
     public static final double angle_kI = 0.00;
     public static final double angle_kD = 0.0;
     public static final double angle_kFF = 0;
