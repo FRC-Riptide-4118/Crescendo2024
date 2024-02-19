@@ -8,13 +8,14 @@ package frc.robot;
 import java.util.*;
 
 // FIRST imports
-import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
@@ -42,13 +43,17 @@ public class RobotContainer {
   private final Climber s_Climber = new Climber();
 
   // Commands
-  InstantCommand do_nothing = new InstantCommand( () -> {} );
-  RunCommand run_climber = new RunCommand(() -> {this.s_Climber.Run(this.driverController.getRightY()); }, this.s_Climber);
+  InstantCommand do_nothing   = new InstantCommand( () -> {} );
+  InstantCommand run_climber_up   = new InstantCommand(() -> {this.s_Climber.Run(0.25); }, this.s_Climber);
+  InstantCommand run_climber_down = new InstantCommand(() -> {this.s_Climber.Run(-0.25); }, this.s_Climber);
+
   // RunCommand reset_encoders = new RunCommand(() -> {this.s_SwerveDrive.}, null)
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
       new CommandXboxController(ControllerConstants.driver_controller_id);
+  private final POVButton povButton =
+      new POVButton(new GenericHID(0), 0);
 
   /** The container for the robot. Contains subsystems, IO devices, and commands. */
   public RobotContainer() {
@@ -64,7 +69,10 @@ public class RobotContainer {
       () -> true)
     );
 
-    // s_Climber.setDefaultCommand(run_climber);
+    // s_Climber.setDefaultCommand(run_climber_up);
+    // s_Climber.setDefaultCommand(run_climber_down);
+
+    // s_Climber
         // Configure the trigger bindings
     configureBindings();
   }
@@ -80,7 +88,8 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-
+    driverController.povUp().onTrue(run_climber_up).onFalse(new InstantCommand(() -> {s_Climber.Run(0); }, s_Climber));
+    driverController.povDown().onTrue(run_climber_down).onFalse(new InstantCommand(() -> {s_Climber.Run(0); }, s_Climber));
   }
 
   /**

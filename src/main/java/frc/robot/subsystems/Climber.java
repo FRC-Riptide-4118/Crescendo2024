@@ -20,27 +20,32 @@ public class Climber extends SubsystemBase {
   private CANSparkMax leftClimber;
   private RelativeEncoder leftClimbEncoder;
 
+  private final CommandXboxController driverController =
+      new CommandXboxController(ControllerConstants.driver_controller_id);
+
   /** Creates a new ExampleSubsystem. */
   public Climber() {
     this.leftClimber = new CANSparkMax(ClimberConstants.left_climber_id, MotorType.kBrushless);
     leftClimber.setInverted(true);
+    this.leftClimbEncoder = leftClimber.getEncoder();
 
-    // Shuffleboard.getTab("Game").addDouble(
-    //     "Climber" + " Pos", () -> leftClimbEncoder.getPosition()
-    //   );
+    Shuffleboard.getTab("Game").addDouble(
+        "Climber" + " Pos", () -> leftClimbEncoder.getPosition()
+    );
   }
 
   public void Run(double speed) {
     leftClimber.set(speed);
   }
 
-  // public void Up(Trigger controlTrigger) {
-  //   double getPos = leftClimbEncoder.getPosition();
-  //   leftClimbEncoder.setPosition(5 + getPos);
-  // }
+  public void Up() {
+    double getPos = leftClimbEncoder.getPosition();
+    leftClimbEncoder.setPosition(500 + getPos);
+  }
 
-  public void Down(Trigger controlTrigger) {
-
+  public void Down() {
+    double getPos = leftClimbEncoder.getPosition();
+    leftClimbEncoder.setPosition(500 + getPos);
   }
 
   @Override
