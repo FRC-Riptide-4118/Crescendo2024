@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Climber;
 import frc.robot.Constants.DriveConstants.MotorPosition;
+import frc.robot.Constants.ControllerConstants;
 
 // Commands
 import frc.robot.commands.TeleOpSwerve;
@@ -42,12 +43,12 @@ public class RobotContainer {
 
   // Commands
   InstantCommand do_nothing = new InstantCommand( () -> {} );
-  RunCommand run_climber = new RunCommand(() -> { this.s_Climber.Run(this.driverController.getRightY()); }, this.s_Climber);
+  RunCommand run_climber = new RunCommand(() -> {this.s_Climber.Run(this.driverController.getRightY()); }, this.s_Climber);
   // RunCommand reset_encoders = new RunCommand(() -> {this.s_SwerveDrive.}, null)
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
-      new CommandXboxController(Constants.ControllerConstants.driver_controller_id);
+      new CommandXboxController(ControllerConstants.driver_controller_id);
 
   /** The container for the robot. Contains subsystems, IO devices, and commands. */
   public RobotContainer() {
@@ -63,9 +64,8 @@ public class RobotContainer {
       () -> true)
     );
 
-    // s_Climber.setDefaultCommand( run_climber );
-
-    // Configure the trigger bindings
+    // s_Climber.setDefaultCommand(run_climber);
+        // Configure the trigger bindings
     configureBindings();
   }
 
