@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 
 
@@ -44,21 +44,27 @@ public class RobotContainer {
 
   // Commands
   InstantCommand do_nothing   = new InstantCommand( () -> {} );
-  InstantCommand run_climber_up   = new InstantCommand(() -> {this.s_Climber.Run(0.25); }, this.s_Climber);
-  InstantCommand run_climber_down = new InstantCommand(() -> {this.s_Climber.Run(-0.25); }, this.s_Climber);
+
+  // Left Climber
+  InstantCommand run_left_climber_up   = new InstantCommand(() -> {this.s_Climber.LeftRun(0.25); }, this.s_Climber);
+  InstantCommand run_left_climber_down = new InstantCommand(() -> {this.s_Climber.LeftRun(-0.25); }, this.s_Climber);
+
+  // Right Climber
+  InstantCommand run_right_climber_up   = new InstantCommand(() -> {this.s_Climber.RightRun(0.25); }, this.s_Climber);
+  InstantCommand run_right_climber_down = new InstantCommand(() -> {this.s_Climber.RightRun(-0.25); }, this.s_Climber);
 
   // RunCommand reset_encoders = new RunCommand(() -> {this.s_SwerveDrive.}, null)
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
+  // Xbox Controller
   private final CommandXboxController driverController =
       new CommandXboxController(ControllerConstants.driver_controller_id);
+
+  // POV Button
   private final POVButton povButton =
       new POVButton(new GenericHID(0), 0);
 
   /** The container for the robot. Contains subsystems, IO devices, and commands. */
   public RobotContainer() {
-
-    // Shuffleboard
 
     s_SwerveDrive.setDefaultCommand(
       new TeleOpSwerve(
@@ -88,8 +94,14 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    driverController.povUp().onTrue(run_climber_up).onFalse(new InstantCommand(() -> {s_Climber.Run(0); }, s_Climber));
-    driverController.povDown().onTrue(run_climber_down).onFalse(new InstantCommand(() -> {s_Climber.Run(0); }, s_Climber));
+
+    // Left Climber
+    driverController.povUp().onTrue(run_left_climber_up).onFalse(new InstantCommand(() -> {s_Climber.LeftRun(0); }, s_Climber));
+    driverController.a().onTrue(run_left_climber_down).onFalse(new InstantCommand(() -> {s_Climber.LeftRun(0); }, s_Climber));
+
+    // Right Climber change back to up, and find out how to make M2 & M1 work
+    driverController.rightBumper().onTrue(run_right_climber_up).onFalse(new InstantCommand(() -> {s_Climber.RightRun(0); }, s_Climber));
+    // driverController.povDown().onTrue(run_right_climber_down).onFalse(new InstantCommand(() -> {s_Climber.RightRun(0); }, s_Climber));
   }
 
   /**

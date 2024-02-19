@@ -17,35 +17,57 @@ import frc.robot.Constants.ControllerConstants;
 
 public class Climber extends SubsystemBase {
 
+  // Left Climber
   private CANSparkMax leftClimber;
   private RelativeEncoder leftClimbEncoder;
+
+  // Right Climber
+  private CANSparkMax rightClimber;
+  private RelativeEncoder rightClimbEncoder;
 
   private final CommandXboxController driverController =
       new CommandXboxController(ControllerConstants.driver_controller_id);
 
   /** Creates a new ExampleSubsystem. */
   public Climber() {
+
+    // Left Climber
     this.leftClimber = new CANSparkMax(ClimberConstants.left_climber_id, MotorType.kBrushless);
     leftClimber.setInverted(true);
     this.leftClimbEncoder = leftClimber.getEncoder();
 
     Shuffleboard.getTab("Game").addDouble(
-        "Climber" + " Pos", () -> leftClimbEncoder.getPosition()
+        "Climber" + " LeftPos", () -> leftClimbEncoder.getPosition()
+    );
+
+    // Right Climber
+    this.rightClimber = new CANSparkMax(ClimberConstants.right_climber_id, MotorType.kBrushless);
+    rightClimber.setInverted(false);
+    this.rightClimbEncoder = rightClimber.getEncoder();
+
+    Shuffleboard.getTab("Game").addDouble(
+        "Climber" + " RightPos", () -> rightClimbEncoder.getPosition()
     );
   }
 
-  public void Run(double speed) {
+  // Left Climber
+  public void LeftRun(double speed) {
     leftClimber.set(speed);
   }
 
-  public void Up() {
-    double getPos = leftClimbEncoder.getPosition();
-    leftClimbEncoder.setPosition(500 + getPos);
-  }
+  // public void LeftUp() {
+  //   double getPos = leftClimbEncoder.getPosition();
+  //   leftClimbEncoder.setPosition(500 + getPos);
+  // }
 
-  public void Down() {
-    double getPos = leftClimbEncoder.getPosition();
-    leftClimbEncoder.setPosition(500 + getPos);
+  // public void LeftDown() {
+  //   double getPos = leftClimbEncoder.getPosition();
+  //   leftClimbEncoder.setPosition(500 + getPos);
+  // }
+
+  // Right Climber
+  public void RightRun(double speed) {
+    rightClimber.set(speed);
   }
 
   @Override

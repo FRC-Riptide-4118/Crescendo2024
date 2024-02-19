@@ -155,7 +155,7 @@ public final class Constants {
 
   public static class ClimberConstants {
     public static final int left_climber_id = 9;
-    public static final int right_climber_id = 10;
+    public static final int right_climber_id = 14;
   }
 
   public static class ControllerConstants {
