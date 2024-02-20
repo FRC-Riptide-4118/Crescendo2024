@@ -79,8 +79,8 @@ public class RobotContainer {
       () -> true)
     );
 
-    s_Intake.setDefaultCommand(intake);
-    s_Intake.setDefaultCommand(outtake);
+    // s_Intake.setDefaultCommand(intake);
+    // s_Intake.setDefaultCommand(outtake);
 
     configureBindings();
   }
