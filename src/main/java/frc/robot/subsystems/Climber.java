@@ -25,9 +25,6 @@ public class Climber extends SubsystemBase {
   private CANSparkMax rightClimber;
   private RelativeEncoder rightClimbEncoder;
 
-  private final CommandXboxController driverController =
-      new CommandXboxController(ControllerConstants.driver_controller_id);
-
   /** Creates a new ExampleSubsystem. */
   public Climber() {
 
@@ -54,16 +51,6 @@ public class Climber extends SubsystemBase {
   public void LeftRun(double speed) {
     leftClimber.set(speed);
   }
-
-  // public void LeftUp() {
-  //   double getPos = leftClimbEncoder.getPosition();
-  //   leftClimbEncoder.setPosition(500 + getPos);
-  // }
-
-  // public void LeftDown() {
-  //   double getPos = leftClimbEncoder.getPosition();
-  //   leftClimbEncoder.setPosition(500 + getPos);
-  // }
 
   // Right Climber
   public void RightRun(double speed) {

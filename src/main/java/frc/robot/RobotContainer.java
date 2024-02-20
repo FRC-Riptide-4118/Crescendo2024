@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.XboxController;
 // Subsystems
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Intake;
 import frc.robot.Constants.DriveConstants.MotorPosition;
 import frc.robot.Constants.ControllerConstants;
 
@@ -40,7 +41,8 @@ public class RobotContainer {
 
   // Subsystems
   private final SwerveDrive s_SwerveDrive = new SwerveDrive();
-  private final Climber s_Climber = new Climber();
+  private final Climber         s_Climber = new Climber();
+  private final Intake          s_Intake  = new Intake();
 
   // Commands
   InstantCommand do_nothing   = new InstantCommand( () -> {} );
@@ -53,7 +55,9 @@ public class RobotContainer {
   InstantCommand run_right_climber_up   = new InstantCommand(() -> {this.s_Climber.RightRun(0.25); }, this.s_Climber);
   InstantCommand run_right_climber_down = new InstantCommand(() -> {this.s_Climber.RightRun(-0.25); }, this.s_Climber);
 
-  // RunCommand reset_encoders = new RunCommand(() -> {this.s_SwerveDrive.}, null)
+  // Intake
+  InstantCommand intake  = new InstantCommand(() -> {this.s_Intake.RunIntake(-this.driverController.getLeftTriggerAxis());}, this.s_Intake);
+  InstantCommand outtake = new InstantCommand(() -> {this.s_Intake.RunIntake(this.driverController.getRightTriggerAxis());}, this.s_Intake);
 
   // Xbox Controller
   private final CommandXboxController driverController =
@@ -75,11 +79,9 @@ public class RobotContainer {
       () -> true)
     );
 
-    // s_Climber.setDefaultCommand(run_climber_up);
-    // s_Climber.setDefaultCommand(run_climber_down);
+    s_Intake.setDefaultCommand(intake);
+    s_Intake.setDefaultCommand(outtake);
 
-    // s_Climber
-        // Configure the trigger bindings
     configureBindings();
   }
 
@@ -96,12 +98,13 @@ public class RobotContainer {
   private void configureBindings() {
 
     // Left Climber
-    driverController.povUp().onTrue(run_left_climber_up).onFalse(new InstantCommand(() -> {s_Climber.LeftRun(0); }, s_Climber));
-    driverController.a().onTrue(run_left_climber_down).onFalse(new InstantCommand(() -> {s_Climber.LeftRun(0); }, s_Climber));
+    driverController.leftBumper().onTrue(run_left_climber_up).onFalse(new InstantCommand(() -> {s_Climber.LeftRun(0); }, s_Climber));
+    driverController.leftStick().onTrue(run_left_climber_down).onFalse(new InstantCommand(() -> {s_Climber.LeftRun(0); }, s_Climber));
 
-    // Right Climber change back to up, and find out how to make M2 & M1 work
+    // Right Climber
     driverController.rightBumper().onTrue(run_right_climber_up).onFalse(new InstantCommand(() -> {s_Climber.RightRun(0); }, s_Climber));
-    // driverController.povDown().onTrue(run_right_climber_down).onFalse(new InstantCommand(() -> {s_Climber.RightRun(0); }, s_Climber));
+    driverController.rightStick().onTrue(run_right_climber_down).onFalse(new InstantCommand(() -> {s_Climber.RightRun(0); }, s_Climber));
+
   }
 
   /**

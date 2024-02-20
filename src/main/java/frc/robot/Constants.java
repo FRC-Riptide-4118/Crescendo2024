@@ -153,18 +153,6 @@ public final class Constants {
     
   }
 
-  public static class ClimberConstants {
-    public static final int left_climber_id = 9;
-    public static final int right_climber_id = 14;
-  }
-
-  public static class ControllerConstants {
-
-    public static final int driver_controller_id = 0;
-    public static final double stickDeadband = 0.1;
-
-  }
-
   public static SwerveModuleState optimize(SwerveModuleState desired_state, Rotation2d current_angle) {
 
     double target_angle = wrap_angle(current_angle.getDegrees(), desired_state.angle.getDegrees());
@@ -211,6 +199,43 @@ public final class Constants {
 
     return angle;
 
+  }
+
+  public static class ControllerConstants {
+
+    public static final int driver_controller_id = 0;
+    public static final double stickDeadband = 0.1;
+
+  }
+
+  public static class IntakeConstants {
+    public static final int intake_id = 12;
+
+    public static final double intake_kp = 0.0;
+    public static final double intake_ki = 0.0;
+    public static final double intake_kd = 0.0;
+  }
+
+  public static class ClimberConstants {
+    public static final int left_climber_id = 9;
+    public static final int right_climber_id = 14;
+
+    public static final double climber_kp = 0.0;
+    public static final double climber_ki = 0.0;
+    public static final double climber_kd = 0.0;
+  }
+
+  public static class LauncherConstants {
+    public static final int launcher_id = 13;
+
+    public static final double launcher_kp = 0.0;
+    public static final double launcher_ki = 0.0;
+    public static final double launcher_kd = 0.0;
+
+  }
+
+  public static class SlidesConstants {
+    public static final int slides_id = 11;
   }
 
   public static final class AutoConstants {
