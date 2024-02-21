@@ -28,6 +28,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.Constants.DriveConstants.MotorPosition;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.ExampleAuto;
+
 // Commands
 import frc.robot.commands.TeleOpSwerve;
 
@@ -43,10 +44,8 @@ public class RobotContainer {
   private final SwerveDrive s_SwerveDrive = new SwerveDrive();
   private final Climber         s_Climber = new Climber();
   private final Intake          s_Intake  = new Intake();
-  private final ExampleAuto s_ExampleAuto = new ExampleAuto(s_SwerveDrive);
 
-  // Commands
-  InstantCommand do_nothing   = new InstantCommand( () -> {} );
+  /* Commands */
 
   // Left Climber
   InstantCommand run_left_climber_up   = new InstantCommand(() -> {this.s_Climber.LeftRun(0.25); }, this.s_Climber);
@@ -115,8 +114,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
-    return this.do_nothing;
-    s_ExampleAuto.setDefaultCommand( new ExampleAuto(s_SwerveDrive));
+    return new ExampleAuto(s_SwerveDrive);
 
   }
 }
