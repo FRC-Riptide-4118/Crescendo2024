@@ -59,10 +59,10 @@ public final class Constants {
     public static final int rear_right_CANcoder_id  = 18;
 
     // Angle Offset
-    public static final Rotation2d front_left_angle_offset  = Rotation2d.fromDegrees(0);
-    public static final Rotation2d front_right_angle_offset = Rotation2d.fromDegrees(0);
-    public static final Rotation2d rear_left_angle_offset   = Rotation2d.fromDegrees(0);
-    public static final Rotation2d rear_right_angle_offset  = Rotation2d.fromDegrees(0);
+    // public static final Rotation2d front_left_angle_offset  = Rotation2d.fromDegrees(0);
+    // public static final Rotation2d front_right_angle_offset = Rotation2d.fromDegrees(0);
+    // public static final Rotation2d rear_left_angle_offset   = Rotation2d.fromDegrees(0);
+    // public static final Rotation2d rear_right_angle_offset  = Rotation2d.fromDegrees(0);
 
     // Pigeon
     public static final int pigeon_id = 0;
@@ -85,12 +85,12 @@ public final class Constants {
     public int CANCoder_id;
     public Rotation2d angle_offset;
 
-    public SwerveModuleConstants(int angle_motor_id, int drive_motor_id, int CANCoder_id, Rotation2d angle_offset) {
+    public SwerveModuleConstants(int angle_motor_id, int drive_motor_id, int CANCoder_id /*, Rotation2d angle_offset */ ) {
 
       this.angle_motor_id = angle_motor_id;
       this.drive_motor_id = drive_motor_id;
       this.CANCoder_id = CANCoder_id;
-      this.angle_offset = angle_offset;
+      // this.angle_offset = angle_offset;
 
     }
 
@@ -107,23 +107,22 @@ public final class Constants {
     public static final int angle_smart_current_limit = 20;
     public static final int drive_smart_current_limit = 80;
 
-  /* Drive Motor Conversion Factors */
+    /* Drive Motor Conversion Factors */
     public static final double driveConversionPositionFactor =
       (DriveConstants.wheelDiameter * Math.PI) / DriveConstants.driveGearRatio;
     public static final double driveConversionVelocityFactor = driveConversionPositionFactor / 60.0;
 
-    // public static final double angleConversionFactor = 360.0 / (DriveConstants.TICKS_PER_ROTATION * DriveConstants.angleGearRatio);
     public static final double angleConversionFactor = 360/ DriveConstants.angleGearRatio;
 
-    public static final double angle_kP = 0.1;
-    public static final double angle_kI = 0.00;
-    public static final double angle_kD = 0.0;
-    public static final double angle_kFF = 0;
+    public static final double angle_kP  = 0.1;
+    public static final double angle_kI  = 0.0;
+    public static final double angle_kD  = 0.0;
+    public static final double angle_kFF = 0.0;
 
-    public static final double drive_kP = 0.1;
-    public static final double drive_kI = 0.00;
-    public static final double drive_kD = 0.0;
-    public static final double drive_kFF = 0;
+    public static final double drive_kP  = 0.1;
+    public static final double drive_kI  = 0.0;
+    public static final double drive_kD  = 0.0;
+    public static final double drive_kFF = 0.0;
 
     public static final double max_speed = 4.5;
 
@@ -143,12 +142,12 @@ public final class Constants {
       new Translation2d(-wheel_base / 2.0, -track_width / 2.0)
     );
 
-    // ADD IN CANCODER IDS!!!
+    // Took out angle offsets
     public static final SwerveModuleConstants[] module_constants = new SwerveModuleConstants[]{
-      new SwerveModuleConstants(DriveConstants.front_left_steer_id, DriveConstants.front_left_drive_id, DriveConstants.front_left_CANcoder_id,  DriveConstants.front_left_angle_offset),
-      new SwerveModuleConstants(DriveConstants.front_right_steer_id, DriveConstants.front_right_drive_id, DriveConstants.front_right_CANcoder_id,  DriveConstants.front_right_angle_offset),
-      new SwerveModuleConstants(DriveConstants.rear_left_steer_id, DriveConstants.rear_left_drive_id, DriveConstants.rear_left_CANcoder_id,  DriveConstants.rear_right_angle_offset),
-      new SwerveModuleConstants(DriveConstants.rear_right_steer_id, DriveConstants.rear_right_drive_id, DriveConstants.rear_right_CANcoder_id, DriveConstants.rear_left_angle_offset),
+      new SwerveModuleConstants(DriveConstants.front_left_steer_id, DriveConstants.front_left_drive_id, DriveConstants.front_left_CANcoder_id),
+      new SwerveModuleConstants(DriveConstants.front_right_steer_id, DriveConstants.front_right_drive_id, DriveConstants.front_right_CANcoder_id),
+      new SwerveModuleConstants(DriveConstants.rear_left_steer_id, DriveConstants.rear_left_drive_id, DriveConstants.rear_left_CANcoder_id),
+      new SwerveModuleConstants(DriveConstants.rear_right_steer_id, DriveConstants.rear_right_drive_id, DriveConstants.rear_right_CANcoder_id),
     };
     
   }

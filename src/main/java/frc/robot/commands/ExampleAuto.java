@@ -54,8 +54,13 @@ public class ExampleAuto extends SequentialCommandGroup {
             s_Swerve::setModuleStates,
             s_Swerve);
 
-    addCommands(
-        new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
-        swerveControllerCommand);
+            addCommands(
+                new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
+                swerveControllerCommand);
   }
+
+public void setDefaultCommand(ExampleAuto exampleAuto) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'setDefaultCommand'");
+}
 }

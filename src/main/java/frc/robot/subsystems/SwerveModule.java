@@ -162,6 +162,7 @@ public class SwerveModule {
             //     0
             // );
 
+
             this.drive_motor.setVoltage(
                 drive_controller.calculate(drive_encoder.getVelocity(), desired_state.speedMetersPerSecond)
             );
@@ -173,10 +174,9 @@ public class SwerveModule {
     public void setAngle(SwerveModuleState desired_state) {
    
         Rotation2d angle = 
-            (Math.abs(desired_state.speedMetersPerSecond) <= SwerveConstants.max_speed * 0.01)
+            (Math.abs(desired_state.speedMetersPerSecond) <= SwerveConstants.max_speed * 0.05)
                 ? this.prev_angle
                 : desired_state.angle;
-
                 this.angle_motor.setVoltage(
                 angle_controller.calculate(angle_encoder.getPosition(), angle.getDegrees())
             );

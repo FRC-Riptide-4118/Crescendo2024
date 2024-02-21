@@ -27,7 +27,7 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.Constants.DriveConstants.MotorPosition;
 import frc.robot.Constants.ControllerConstants;
-
+import frc.robot.commands.ExampleAuto;
 // Commands
 import frc.robot.commands.TeleOpSwerve;
 
@@ -43,6 +43,7 @@ public class RobotContainer {
   private final SwerveDrive s_SwerveDrive = new SwerveDrive();
   private final Climber         s_Climber = new Climber();
   private final Intake          s_Intake  = new Intake();
+  private final ExampleAuto s_ExampleAuto = new ExampleAuto(s_SwerveDrive);
 
   // Commands
   InstantCommand do_nothing   = new InstantCommand( () -> {} );
@@ -55,9 +56,9 @@ public class RobotContainer {
   InstantCommand run_right_climber_up   = new InstantCommand(() -> {this.s_Climber.RightRun(0.25); }, this.s_Climber);
   InstantCommand run_right_climber_down = new InstantCommand(() -> {this.s_Climber.RightRun(-0.25); }, this.s_Climber);
 
-  // Intake
-  InstantCommand intake  = new InstantCommand(() -> {this.s_Intake.RunIntake(-this.driverController.getLeftTriggerAxis());}, this.s_Intake);
-  InstantCommand outtake = new InstantCommand(() -> {this.s_Intake.RunIntake(this.driverController.getRightTriggerAxis());}, this.s_Intake);
+  // // Intake
+  // InstantCommand intake  = new InstantCommand(() -> {this.s_Intake.RunIntake(-this.driverController.getLeftTriggerAxis());}, this.s_Intake);
+  // InstantCommand outtake = new InstantCommand(() -> {this.s_Intake.RunIntake(this.driverController.getRightTriggerAxis());}, this.s_Intake);
 
   // Xbox Controller
   private final CommandXboxController driverController =
@@ -115,6 +116,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
 
     return this.do_nothing;
+    s_ExampleAuto.setDefaultCommand( new ExampleAuto(s_SwerveDrive));
 
   }
 }
