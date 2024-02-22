@@ -58,11 +58,8 @@ public final class Constants {
     public static final int rear_left_CANcoder_id   = 17;
     public static final int rear_right_CANcoder_id  = 18;
 
-    // Angle Offset
-    // public static final Rotation2d front_left_angle_offset  = Rotation2d.fromDegrees(0);
-    // public static final Rotation2d front_right_angle_offset = Rotation2d.fromDegrees(0);
-    // public static final Rotation2d rear_left_angle_offset   = Rotation2d.fromDegrees(0);
-    // public static final Rotation2d rear_right_angle_offset  = Rotation2d.fromDegrees(0);
+    // IMU
+    public static final boolean invert_imu = false;
 
     // Pigeon
     public static final int pigeon_id = 0;
@@ -90,8 +87,6 @@ public final class Constants {
       this.angle_motor_id = angle_motor_id;
       this.drive_motor_id = drive_motor_id;
       this.CANCoder_id = CANCoder_id;
-      // this.angle_offset = angle_offset;
-
     }
 
   }
@@ -115,7 +110,7 @@ public final class Constants {
     public static final double angleConversionFactor = 360/ DriveConstants.angleGearRatio;
 
     public static final double angle_kP  = 0.1;
-    public static final double angle_kI  = 0.0;
+    public static final double angle_kI  = 0.001;
     public static final double angle_kD  = 0.0;
     public static final double angle_kFF = 0.0;
 
@@ -133,7 +128,7 @@ public final class Constants {
 
     /* Swerve Profiling Values */
     public static final double maxSpeed = 4.5; // meters per second
-    public static final double maxAngularVelocity = 11.5;
+    public static final double maxAngularVelocity = 60.0; // 11.5
 
     public static final SwerveDriveKinematics swerve_kinematics = new SwerveDriveKinematics(
       new Translation2d(wheel_base / 2.0, track_width / 2.0),
@@ -209,19 +204,11 @@ public final class Constants {
 
   public static class IntakeConstants {
     public static final int intake_id = 12;
-
-    public static final double intake_kp = 0.0;
-    public static final double intake_ki = 0.0;
-    public static final double intake_kd = 0.0;
   }
 
   public static class ClimberConstants {
     public static final int left_climber_id = 9;
     public static final int right_climber_id = 14;
-
-    public static final double climber_kp = 0.0;
-    public static final double climber_ki = 0.0;
-    public static final double climber_kd = 0.0;
   }
 
   public static class LauncherConstants {

@@ -13,11 +13,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
 
@@ -31,6 +33,7 @@ import frc.robot.commands.ExampleAuto;
 
 // Commands
 import frc.robot.commands.TeleOpSwerve;
+import frc.robot.commands.Zero;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -46,6 +49,9 @@ public class RobotContainer {
   private final Intake          s_Intake  = new Intake();
 
   /* Commands */
+
+  // Reset to Absolute
+  InstantCommand reset_to_abs = new InstantCommand(() -> {this.s_SwerveDrive.resetToAbsolute();}, this.s_SwerveDrive);
 
   // Left Climber
   InstantCommand run_left_climber_up   = new InstantCommand(() -> {this.s_Climber.LeftRun(0.25); }, this.s_Climber);
@@ -63,9 +69,20 @@ public class RobotContainer {
   private final CommandXboxController driverController =
       new CommandXboxController(ControllerConstants.driver_controller_id);
 
+  private final Joystick driver = new Joystick(0);
+
   // POV Button
   private final POVButton povButton =
       new POVButton(new GenericHID(0), 0);
+
+  // IMU 
+  private final JoystickButton zero_imu = 
+    new JoystickButton(driver, XboxController.Button.kY.value);
+
+  // 
+  private final JoystickButton robotCentric =
+    new JoystickButton(driver, XboxController.Button.kA.value);
+
 
   /** The container for the robot. Contains subsystems, IO devices, and commands. */
   public RobotContainer() {
@@ -74,9 +91,9 @@ public class RobotContainer {
       new TeleOpSwerve(
       s_SwerveDrive, 
       () -> driverController.getLeftY(), 
-      () -> driverController.getLeftX(), 
-      () -> driverController.getRightX(),
-      () -> true)
+      () -> -driverController.getLeftX(), 
+      () -> -driverController.getRightX(),
+      () -> driverController.a().getAsBoolean())
     );
 
     // s_Intake.setDefaultCommand(intake);
@@ -96,6 +113,12 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+
+    // Zeroing the Modules
+    driverController.povUp().whileTrue(reset_to_abs);
+
+    // Zeroing the IMU
+    zero_imu.whileTrue(new InstantCommand(()-> s_SwerveDrive.zero_imu()));
 
     // Left Climber
     driverController.leftBumper().onTrue(run_left_climber_up).onFalse(new InstantCommand(() -> {s_Climber.LeftRun(0); }, s_Climber));

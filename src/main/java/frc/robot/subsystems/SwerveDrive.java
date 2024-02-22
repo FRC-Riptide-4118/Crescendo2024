@@ -23,6 +23,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 // Custom imports
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.SwerveConstants;
+import frc.robot.subsystems.SwerveModule;
 // import frc.robot.Constants.;
 
 
@@ -94,15 +95,25 @@ public class SwerveDrive extends SubsystemBase {
 
   }
 
+  public void resetToAbsolute() {
+    for (int i = 0; i < 4; i++) {
+      this.swerve_modules[i].resetToAbsolute();
+    }
+  }
+
   public Rotation2d get_yaw() {
 
-    return Rotation2d.fromDegrees(this.imu.getYaw());
+    // return Rotation2d.fromDegrees(this.imu.getYaw());
+    return (DriveConstants.invert_imu)
+      ? Rotation2d.fromDegrees(360-imu.getYaw())
+      : Rotation2d.fromDegrees(imu.getYaw());
 
   }
 
   public void resetOdometry(Pose2d pose) {
     swerve_odometry.resetPosition(get_yaw(), swerve_module_positions, pose);
   }
+
   public void drive(
       Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
     SwerveModuleState[] swerveModuleStates =

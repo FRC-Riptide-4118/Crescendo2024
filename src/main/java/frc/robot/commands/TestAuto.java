@@ -16,8 +16,8 @@ import frc.robot.Constants.SwerveConstants;
 import frc.robot.subsystems.SwerveDrive;
 import java.util.List;
 
-public class ExampleAuto extends SequentialCommandGroup {
-  public ExampleAuto(SwerveDrive s_Swerve) {
+public class TestAuto extends SequentialCommandGroup {
+  public TestAuto(SwerveDrive s_Swerve) {
     TrajectoryConfig config =
         new TrajectoryConfig(
                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
