@@ -83,6 +83,10 @@ public class SwerveDrive extends SubsystemBase {
 
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, SwerveConstants.maxSpeed);
+
+    for (SwerveModule mod : this.swerve_modules) {
+      mod.setDesiredState(desiredStates[mod.module_number], false);
+    }
   }
 
   public Pose2d getPose() {
@@ -105,7 +109,7 @@ public class SwerveDrive extends SubsystemBase {
 
     // return Rotation2d.fromDegrees(this.imu.getYaw());
     return (DriveConstants.invert_imu)
-      ? Rotation2d.fromDegrees(360-imu.getYaw())
+      ? Rotation2d.fromDegrees(360 - imu.getYaw())
       : Rotation2d.fromDegrees(imu.getYaw());
 
   }
