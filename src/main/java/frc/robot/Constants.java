@@ -131,10 +131,10 @@ public final class Constants {
     public static final double maxAngularVelocity = 60.0; // 11.5
 
     public static final SwerveDriveKinematics swerve_kinematics = new SwerveDriveKinematics(
-      new Translation2d(wheel_base / 2.0, track_width / 2.0),
-      new Translation2d(wheel_base / 2.0, -track_width / 2.0),
-      new Translation2d(-wheel_base / 2.0, track_width / 2.0),
-      new Translation2d(-wheel_base / 2.0, -track_width / 2.0)
+      new Translation2d(wheel_base / 2.0, -track_width / 2.0), // +-
+      new Translation2d(wheel_base / 2.0, track_width / 2.0),  // ++
+      new Translation2d(-wheel_base / 2.0, -track_width / 2.0),// -- 
+      new Translation2d(-wheel_base / 2.0, +track_width / 2.0)  // -+
     );
 
     // Took out angle offsets
