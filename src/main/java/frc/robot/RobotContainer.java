@@ -33,7 +33,6 @@ import frc.robot.commands.ExampleAuto;
 
 // Commands
 import frc.robot.commands.TeleOpSwerve;
-import frc.robot.commands.Zero;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
