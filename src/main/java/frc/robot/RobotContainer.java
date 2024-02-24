@@ -17,11 +17,20 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
+// Pathplanner
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.auto.CommandUtil;
 
 // Subsystems
 import frc.robot.subsystems.SwerveDrive;
@@ -46,6 +55,8 @@ public class RobotContainer {
   private final SwerveDrive s_SwerveDrive = new SwerveDrive();
   private final Climber         s_Climber = new Climber();
   private final Intake          s_Intake  = new Intake();
+
+  private final SendableChooser<Command> autoChooser;
 
   /* Commands */
 
@@ -99,6 +110,9 @@ public class RobotContainer {
     // s_Intake.setDefaultCommand(outtake);
 
     configureBindings();
+
+    autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
+    SmartDashboard.putData("Auto Mode", autoChooser);
   }
 
 
@@ -112,6 +126,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+
+    SmartDashboard.putData("Leave Auto", new PathPlannerAuto("Leave Auto"));
+    SmartDashboard.putData("Spin Auto", new PathPlannerAuto("Spin Auto"));
 
     // Zeroing the Modules
     driverController.povUp().whileTrue(reset_to_abs);
@@ -136,7 +153,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
-    return new ExampleAuto(s_SwerveDrive);
+    return autoChooser.getSelected();
 
   }
 }

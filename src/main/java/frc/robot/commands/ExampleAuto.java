@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+// WPI Imports
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -11,6 +12,8 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+
+// Robot Imports
 import frc.robot.Constants;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.subsystems.SwerveDrive;
@@ -59,9 +62,4 @@ public class ExampleAuto extends SequentialCommandGroup {
                 swerveControllerCommand
             );
   }
-
-// public void setDefaultCommand(ExampleAuto exampleAuto) {
-//     // TODO Auto-generated method stub
-//     throw new UnsupportedOperationException("Unimplemented method 'setDefaultCommand'");
-// }
 }
