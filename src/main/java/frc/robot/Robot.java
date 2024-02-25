@@ -49,23 +49,23 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private SwerveDrive s_Swerve;
+  // private SwerveDrive s_Swerve;
 
-  private final Limelight limelight = new Limelight();
+  // private final Limelight limelight = new Limelight();
 
   //NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-  NetworkTable limelightAprilTable = NetworkTableInstance.getDefault().getTable("limelight-april");
-  NetworkTable limelightNoteTable = NetworkTableInstance.getDefault().getTable("limelight-note");
+  // NetworkTable limelightAprilTable = NetworkTableInstance.getDefault().getTable("limelight-april");
+  // NetworkTable limelightNoteTable = NetworkTableInstance.getDefault().getTable("limelight-note");
 
-  double limelightAprilTagLastError;
-  double limelightNoteLastError;
+  // double limelightAprilTagLastError;
+  // double limelightNoteLastError;
 
-  PhotonCamera photon = new PhotonCamera("Microsoft_LifeCam_HD-3000");
+  // PhotonCamera photon = new PhotonCamera("Microsoft_LifeCam_HD-3000");
 
   //Photon Vision PID Setup
-  final double ANGULAR_P = 0.1;
-  final double ANGULAR_D = 0.0;
-  PIDController turnController = new PIDController(ANGULAR_P, 0, ANGULAR_D);
+  // final double ANGULAR_P = 0.1;
+  // final double ANGULAR_D = 0.0;
+  // PIDController turnController = new PIDController(ANGULAR_P, 0, ANGULAR_D);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    limelight.updateLimelightData();
+    // limelight.updateLimelightData();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -151,183 +151,183 @@ public class Robot extends TimedRobot {
   @Override
   public void simulationPeriodic() {}
 
-  private void Driver1Controls() {
-      if (ControllerConstants.driver1.getRawButton(3)) {
-        limelightAprilTagAim(true);
-      } else if (ControllerConstants.driver1.getRawButton(4)) {
-        limelightNoteAim(true);
+  // private void Driver1Controls() {
+  //     if (ControllerConstants.driver1.getRawButton(3)) {
+  //       limelightAprilTagAim(true);
+  //     } else if (ControllerConstants.driver1.getRawButton(4)) {
+  //       limelightNoteAim(true);
 
-      if (!(ControllerConstants.driver1.getRawButton(3))) {
-        limelightAprilTagLastError = 0;
-        System.out.println("limelight button not pressed, setting last tx to 0");
-      }
-      if (!(ControllerConstants.driver1.getRawButton(4))) {
-        limelightNoteLastError = 0;
-        System.out.println("limelight button not pressed, setting last tx to 0");
-      }
-    }
-  }
+  //     if (!(ControllerConstants.driver1.getRawButton(3))) {
+  //       limelightAprilTagLastError = 0;
+  //       System.out.println("limelight button not pressed, setting last tx to 0");
+  //     }
+  //     if (!(ControllerConstants.driver1.getRawButton(4))) {
+  //       limelightNoteLastError = 0;
+  //       System.out.println("limelight button not pressed, setting last tx to 0");
+  //     }
+  //   }
+  // }
 
-  private void RobotTelemetry() {
+  // private void RobotTelemetry() {
 
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-    NetworkTableEntry tx = table.getEntry("tx");
-    NetworkTableEntry ty = table.getEntry("ty");
-    NetworkTableEntry ta = table.getEntry("ta");
+  //   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  //   NetworkTableEntry tx = table.getEntry("tx");
+  //   NetworkTableEntry ty = table.getEntry("ty");
+  //   NetworkTableEntry ta = table.getEntry("ta");
 
-    double x = tx.getDouble(0.0);
-    double y = ty.getDouble(0.0);
-    double area = ta.getDouble(0.0);
+  //   double x = tx.getDouble(0.0);
+  //   double y = ty.getDouble(0.0);
+  //   double area = ta.getDouble(0.0);
 
-    SmartDashboard.putNumber("LimelightX", x);
-    SmartDashboard.putNumber("LimelightY", y);
-    SmartDashboard.putNumber("LimelightArea", area);
-  }
+  //   SmartDashboard.putNumber("LimelightX", x);
+  //   SmartDashboard.putNumber("LimelightY", y);
+  //   SmartDashboard.putNumber("LimelightArea", area);
+  // }
 
   // To Drive With Controllers
-  private void SwerveDrive(boolean isFieldRel) {
-    // Controller Deadbands (Translation, Strafe, Rotation)
+  // private void SwerveDrive(boolean isFieldRel) {
+  //   // Controller Deadbands (Translation, Strafe, Rotation)
 
-    double xSpeed = MathUtil.applyDeadband(Constants.ControllerConstants.driver1.getRawAxis(1)
-        * ((Constants.ControllerConstants.driver1.getRawAxis(2) + 1) / 2),
-        Constants.ControllerConstants.stickDeadband);
-    double ySpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(0)
-        * ((ControllerConstants.driver1.getRawAxis(2) + 1) / 2),
-        ControllerConstants.stickDeadband);
-    double rot = MathUtil.applyDeadband(-ControllerConstants.driver1.getRawAxis(3)
-        * ((ControllerConstants.driver1.getRawAxis(2) + 1) / 2),
-        ControllerConstants.stickDeadband);
+  //   double xSpeed = MathUtil.applyDeadband(Constants.ControllerConstants.driver1.getRawAxis(1)
+  //       * ((Constants.ControllerConstants.driver1.getRawAxis(2) + 1) / 2),
+  //       Constants.ControllerConstants.stickDeadband);
+  //   double ySpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(0)
+  //       * ((ControllerConstants.driver1.getRawAxis(2) + 1) / 2),
+  //       ControllerConstants.stickDeadband);
+  //   double rot = MathUtil.applyDeadband(-ControllerConstants.driver1.getRawAxis(3)
+  //       * ((ControllerConstants.driver1.getRawAxis(2) + 1) / 2),
+  //       ControllerConstants.stickDeadband);
 
-    if (ControllerConstants.driver1.getPOV() == 0) {
-      xSpeed = -.75;
-    } else if (ControllerConstants.driver1.getPOV() == 90) {
-      ySpeed = .75;
-    } else if (ControllerConstants.driver1.getPOV() == 180) {
-      xSpeed = .75;
-    } else if (ControllerConstants.driver1.getPOV() == 270) {
-      ySpeed = -.75;
-    } else if (ControllerConstants.driver1.getPOV() == 45) {
-      xSpeed = .5;
-      ySpeed = .5;
-    } else if (ControllerConstants.driver1.getPOV() == 135) {
-      xSpeed = -.5;
-      ySpeed = .5;
-    } else if (ControllerConstants.driver1.getPOV() == 225) {
-      xSpeed = -.5;
-      ySpeed = -.5;
-    } else if (ControllerConstants.driver1.getPOV() == 315) {
-      xSpeed = .5;
-      ySpeed = -.5;
-    }
+  //   if (ControllerConstants.driver1.getPOV() == 0) {
+  //     xSpeed = -.75;
+  //   } else if (ControllerConstants.driver1.getPOV() == 90) {
+  //     ySpeed = .75;
+  //   } else if (ControllerConstants.driver1.getPOV() == 180) {
+  //     xSpeed = .75;
+  //   } else if (ControllerConstants.driver1.getPOV() == 270) {
+  //     ySpeed = -.75;
+  //   } else if (ControllerConstants.driver1.getPOV() == 45) {
+  //     xSpeed = .5;
+  //     ySpeed = .5;
+  //   } else if (ControllerConstants.driver1.getPOV() == 135) {
+  //     xSpeed = -.5;
+  //     ySpeed = .5;
+  //   } else if (ControllerConstants.driver1.getPOV() == 225) {
+  //     xSpeed = -.5;
+  //     ySpeed = -.5;
+  //   } else if (ControllerConstants.driver1.getPOV() == 315) {
+  //     xSpeed = .5;
+  //     ySpeed = -.5;
+  //   }
 
-    // Drive Function
-    s_Swerve.drive(new Translation2d(xSpeed, ySpeed).times(SwerveConstants.maxSpeed),
-        rot * SwerveConstants.maxAngularVelocity, isFieldRel, false);
-  }
+  //   // Drive Function
+  //   s_Swerve.drive(new Translation2d(xSpeed, ySpeed).times(SwerveConstants.maxSpeed),
+  //       rot * SwerveConstants.maxAngularVelocity, isFieldRel, false);
+  // }
 
-  private void limelightAprilTagAim(boolean isFieldRel) {
-    double currentGyro = s_Swerve.imu.getYaw();
-    double mappedAngle = 0.0f;
-    double angy = ((currentGyro % 360.0f));
-    if (currentGyro >= 0.0f) {
-      if (angy > 180) {
-        mappedAngle = angy - 360.0f;
-      } else {
-        mappedAngle = angy;
-      }
-    } else {
-      if (Math.abs(angy) > 180.0f) {
-        mappedAngle = angy + 360.0f;
-      } else {
-        mappedAngle = angy;
-      }
-    }
-    double tx = limelightAprilTable.getEntry("tx").getFloat(700);
-    System.out.println("tx april: " + tx);
-    double tx_max = 30.0f; // detemined empirically as the limelights field of view
-    double error = 0.0f;
-    double kP = 2.0f; // should be between 0 and 1, but can be greater than 1 to go even faster
-    double kD = 0.0f; // should be between 0 and 1
-    double steering_adjust = 0.0f;
-    double acceptable_error_threshold = 10.0f / 360.0f; // 15 degrees allowable
-    if (tx != 0.0f) { // use the limelight if it recognizes anything, and use the gyro otherwise
-      error = -1.0f * (tx / tx_max) * (31.65 / 180); // scaling error between -1 and 1, with 0 being dead on, and 1
-                                                     // being 180 degrees away
-    } else {
-      error = mappedAngle / 180.0f; // scaling error between -1 and 1, with 0 being dead on, and 1 being 180 degrees
-                                    // away
-    }
-    if (limelightAprilTagLastError == 0.0f) {
-      limelightAprilTagLastError = tx;
-    }
-    double error_derivative = error - limelightAprilTagLastError;
-    limelightAprilTagLastError = tx; // setting limelightlasterror for next loop
+  // private void limelightAprilTagAim(boolean isFieldRel) {
+  //   double currentGyro = s_Swerve.imu.getYaw();
+  //   double mappedAngle = 0.0f;
+  //   double angy = ((currentGyro % 360.0f));
+  //   if (currentGyro >= 0.0f) {
+  //     if (angy > 180) {
+  //       mappedAngle = angy - 360.0f;
+  //     } else {
+  //       mappedAngle = angy;
+  //     }
+  //   } else {
+  //     if (Math.abs(angy) > 180.0f) {
+  //       mappedAngle = angy + 360.0f;
+  //     } else {
+  //       mappedAngle = angy;
+  //     }
+  //   }
+  //   double tx = limelightAprilTable.getEntry("tx").getFloat(700);
+  //   System.out.println("tx april: " + tx);
+  //   double tx_max = 30.0f; // detemined empirically as the limelights field of view
+  //   double error = 0.0f;
+  //   double kP = 2.0f; // should be between 0 and 1, but can be greater than 1 to go even faster
+  //   double kD = 0.0f; // should be between 0 and 1
+  //   double steering_adjust = 0.0f;
+  //   double acceptable_error_threshold = 10.0f / 360.0f; // 15 degrees allowable
+  //   if (tx != 0.0f) { // use the limelight if it recognizes anything, and use the gyro otherwise
+  //     error = -1.0f * (tx / tx_max) * (31.65 / 180); // scaling error between -1 and 1, with 0 being dead on, and 1
+  //                                                    // being 180 degrees away
+  //   } else {
+  //     error = mappedAngle / 180.0f; // scaling error between -1 and 1, with 0 being dead on, and 1 being 180 degrees
+  //                                   // away
+  //   }
+  //   if (limelightAprilTagLastError == 0.0f) {
+  //     limelightAprilTagLastError = tx;
+  //   }
+  //   double error_derivative = error - limelightAprilTagLastError;
+  //   limelightAprilTagLastError = tx; // setting limelightlasterror for next loop
 
-    if (Math.abs(error) > acceptable_error_threshold) { // PID with a setpoint threshold
-      steering_adjust = (kP * error + kD * error_derivative);
-    }
+  //   if (Math.abs(error) > acceptable_error_threshold) { // PID with a setpoint threshold
+  //     steering_adjust = (kP * error + kD * error_derivative);
+  //   }
 
-    final double xSpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(1),
-        ControllerConstants.stickDeadband);
-    final double ySpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(0),
-        ControllerConstants.stickDeadband);
-    s_Swerve.drive(new Translation2d(xSpeed, ySpeed).times(SwerveConstants.maxSpeed),
-        steering_adjust * SwerveConstants.maxAngularVelocity, isFieldRel, false);
+  //   final double xSpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(1),
+  //       ControllerConstants.stickDeadband);
+  //   final double ySpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(0),
+  //       ControllerConstants.stickDeadband);
+  //   s_Swerve.drive(new Translation2d(xSpeed, ySpeed).times(SwerveConstants.maxSpeed),
+  //       steering_adjust * SwerveConstants.maxAngularVelocity, isFieldRel, false);
 
-    System.out.println("raw angle: " + currentGyro + ", mapped angle: " + mappedAngle + ", april tag error: " + error);
-  }
+  //   System.out.println("raw angle: " + currentGyro + ", mapped angle: " + mappedAngle + ", april tag error: " + error);
+  // }
 
-private void limelightNoteAim(boolean isFieldRel) {
-    double tx = limelightNoteTable.getEntry("tx").getFloat(0);
-    double tx_max = 30.0f; // detemined empirically as the limelights field of view
-    double error = 0.0f;
-    double kP = 2.0f; // should be between 0 and 1, but can be greater than 1 to go even faster
-    double kD = 0.0f; // should be between 0 and 1
-    double steering_adjust = 0.0f;
-    double acceptable_error_threshold = 10.0f / 360.0f; // 15 degrees allowable
-    error = -1.0 * (tx / tx_max) * (31.65 / 180); // scaling error between -1 and 1, with 0 being dead on, and 1 being 180 degrees away
-    if (limelightNoteLastError == 0.0f) {
-      limelightNoteLastError = tx;
-    }
-    double error_derivative = error - limelightNoteLastError;
-    limelightNoteLastError = tx; // setting limelightlasterror for next loop
+// private void limelightNoteAim(boolean isFieldRel) {
+//     double tx = limelightNoteTable.getEntry("tx").getFloat(0);
+//     double tx_max = 30.0f; // detemined empirically as the limelights field of view
+//     double error = 0.0f;
+//     double kP = 2.0f; // should be between 0 and 1, but can be greater than 1 to go even faster
+//     double kD = 0.0f; // should be between 0 and 1
+//     double steering_adjust = 0.0f;
+//     double acceptable_error_threshold = 10.0f / 360.0f; // 15 degrees allowable
+//     error = -1.0 * (tx / tx_max) * (31.65 / 180); // scaling error between -1 and 1, with 0 being dead on, and 1 being 180 degrees away
+//     if (limelightNoteLastError == 0.0f) {
+//       limelightNoteLastError = tx;
+//     }
+//     double error_derivative = error - limelightNoteLastError;
+//     limelightNoteLastError = tx; // setting limelightlasterror for next loop
 
-    if (Math.abs(error) > acceptable_error_threshold) { // PID with a setpoint threshold
-      steering_adjust = (kP * error + kD * error_derivative);
-    }
+//     if (Math.abs(error) > acceptable_error_threshold) { // PID with a setpoint threshold
+//       steering_adjust = (kP * error + kD * error_derivative);
+//     }
 
-    final double xSpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(1),
-        ControllerConstants.stickDeadband);
-    final double ySpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(0),
-        ControllerConstants.stickDeadband);
-    s_Swerve.drive(new Translation2d(xSpeed, ySpeed).times(SwerveConstants.maxSpeed),
-        steering_adjust * SwerveConstants.maxAngularVelocity, isFieldRel, false);
+//     final double xSpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(1),
+//         ControllerConstants.stickDeadband);
+//     final double ySpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(0),
+//         ControllerConstants.stickDeadband);
+//     s_Swerve.drive(new Translation2d(xSpeed, ySpeed).times(SwerveConstants.maxSpeed),
+//         steering_adjust * SwerveConstants.maxAngularVelocity, isFieldRel, false);
 
-    System.out.println("Note error: " + error);
-  }
+//     System.out.println("Note error: " + error);
+//   }
 
-  //uses photon vision, we are using limelight, keeping in case the code is useful later
-  public void NoteAutoAim(boolean isFieldRel){
-    double steering_adjust;
-    var result = photon.getLatestResult();
+//   //uses photon vision, we are using limelight, keeping in case the code is useful later
+//   public void NoteAutoAim(boolean isFieldRel){
+//     double steering_adjust;
+//     var result = photon.getLatestResult();
 
-    if (result.hasTargets()){
-      steering_adjust = -turnController.calculate(result.getBestTarget().getYaw(), 0);
-    } else {
-      steering_adjust = MathUtil.applyDeadband(-ControllerConstants.driver1.getRawAxis(3)
-        * ((ControllerConstants.driver1.getRawAxis(2) + 1) / 2),
-        ControllerConstants.stickDeadband);
-    }
+//     if (result.hasTargets()){
+//       steering_adjust = -turnController.calculate(result.getBestTarget().getYaw(), 0);
+//     } else {
+//       steering_adjust = MathUtil.applyDeadband(-ControllerConstants.driver1.getRawAxis(3)
+//         * ((ControllerConstants.driver1.getRawAxis(2) + 1) / 2),
+//         ControllerConstants.stickDeadband);
+//     }
 
-    final double xSpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(1),
-        ControllerConstants.stickDeadband);
-    final double ySpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(0),
-        ControllerConstants.stickDeadband);
+//     final double xSpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(1),
+//         ControllerConstants.stickDeadband);
+//     final double ySpeed = MathUtil.applyDeadband(ControllerConstants.driver1.getRawAxis(0),
+//         ControllerConstants.stickDeadband);
 
-    s_Swerve.drive(
-        new Translation2d(xSpeed, ySpeed).times(SwerveConstants.maxSpeed),
-        steering_adjust * SwerveConstants.maxAngularVelocity,
-        isFieldRel,
-        true);
-  }
+//     s_Swerve.drive(
+//         new Translation2d(xSpeed, ySpeed).times(SwerveConstants.maxSpeed),
+//         steering_adjust * SwerveConstants.maxAngularVelocity,
+//         isFieldRel,
+//         true);
+//   }
 }

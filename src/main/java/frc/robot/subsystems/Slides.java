@@ -37,11 +37,11 @@ public class Slides extends SubsystemBase {
 
   // Slides
   public void SlidesUp() {
-    slides.set(0.5);
+    slides.set(0.05);
   }
 
   public void SlidesDown() {
-    slides.set(-0.5);
+    slides.set(-0.05);
   }
 
   public void SlidesOff() {
