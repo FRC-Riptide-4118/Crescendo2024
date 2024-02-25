@@ -36,6 +36,8 @@ import com.pathplanner.lib.auto.CommandUtil;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Launcher;
+import frc.robot.subsystems.Slides;
 import frc.robot.Constants.DriveConstants.MotorPosition;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.ExampleAuto;
@@ -55,6 +57,9 @@ public class RobotContainer {
   private final SwerveDrive s_SwerveDrive = new SwerveDrive();
   private final Climber         s_Climber = new Climber();
   private final Intake          s_Intake  = new Intake();
+  private final Launcher       s_Launcher = new Launcher();
+  private final Slides           s_Slides = new Slides();
+
 
   private final SendableChooser<Command> autoChooser;
 
@@ -71,9 +76,9 @@ public class RobotContainer {
   InstantCommand run_right_climber_up   = new InstantCommand(() -> {this.s_Climber.RightRun(0.25); }, this.s_Climber);
   InstantCommand run_right_climber_down = new InstantCommand(() -> {this.s_Climber.RightRun(-0.25); }, this.s_Climber);
 
-  // // Intake
-  // InstantCommand intake  = new InstantCommand(() -> {this.s_Intake.RunIntake(-this.driverController.getLeftTriggerAxis());}, this.s_Intake);
-  // InstantCommand outtake = new InstantCommand(() -> {this.s_Intake.RunIntake(this.driverController.getRightTriggerAxis());}, this.s_Intake);
+  // Launcher
+  InstantCommand amp     = new InstantCommand(() -> {this.s_Launcher.RunAmp(this.driverController.getLeftTriggerAxis());}, this.s_Launcher);
+  InstantCommand speaker = new InstantCommand(() -> {this.s_Launcher.RunSpeaker(this.driverController.getRightTriggerAxis());}, this.s_Launcher);
 
   // Xbox Controller
   private final CommandXboxController driverController =
@@ -84,15 +89,6 @@ public class RobotContainer {
   // POV Button
   // private final POVButton povButton =
   //     new POVButton(new GenericHID(0), 0);
-
-  // IMU 
-  // private final JoystickButton zero_imu = 
-  //   new JoystickButton(driver, XboxController.Button.kY.value);
-
-  // 
-  // private final JoystickButton robotCentric =
-  //   new JoystickButton(driver, XboxController.Button.kA.value);
-
 
   /** The container for the robot. Contains subsystems, IO devices, and commands. */
   public RobotContainer() {
@@ -106,8 +102,8 @@ public class RobotContainer {
       () -> driverController.back().getAsBoolean())
     );
 
-    // s_Intake.setDefaultCommand(intake);
-    // s_Intake.setDefaultCommand(outtake);
+    s_Launcher.setDefaultCommand(amp);
+    s_Launcher.setDefaultCommand(speaker);
 
     configureBindings();
 
@@ -136,9 +132,13 @@ public class RobotContainer {
     // Zeroing the IMU
     driverController.start().whileTrue(new InstantCommand(()-> s_SwerveDrive.zero_imu()));
 
-    // Intake // TESTING FOR SLIDES
+    // Intake 
     driverController.a().onTrue(new InstantCommand(() -> s_Intake.Intake())).onFalse(new InstantCommand(() -> {s_Intake.Off(); }, s_Intake));
     driverController.b().onTrue(new InstantCommand(() -> s_Intake.Outtake())).onFalse(new InstantCommand(() -> {s_Intake.Off(); }, s_Intake));
+
+    // Slides 
+    driverController.povLeft().onTrue(new InstantCommand(() -> s_Slides.SlidesUp())).onFalse(new InstantCommand(() -> {s_Slides.SlidesOff(); }, s_Slides));
+    driverController.povRight().onTrue(new InstantCommand(() -> s_Slides.SlidesDown())).onFalse(new InstantCommand(() -> {s_Slides.SlidesOff(); }, s_Slides));
 
     // Left Climber
     driverController.leftBumper().onTrue(run_left_climber_up).onFalse(new InstantCommand(() -> {s_Climber.LeftRun(0); }, s_Climber));

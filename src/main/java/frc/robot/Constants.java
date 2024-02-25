@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.math.geometry.Translation2d;
 
 // REV imports
@@ -210,10 +211,12 @@ public final class Constants {
     public static final int driver_controller_id = 0;
     public static final double stickDeadband = 0.1;
 
+    public static final Joystick driver1 = new Joystick(0);
+
   }
 
   public static class IntakeConstants {
-    public static final int intake_id = 13;
+    public static final int intake_id = 10;
   }
 
   public static class ClimberConstants {
@@ -231,7 +234,7 @@ public final class Constants {
   }
 
   public static class SlidesConstants {
-    public static final int slides_id = 11;
+    public static final int slides_id = 13;
   }
 
   public static final class AutoConstants {

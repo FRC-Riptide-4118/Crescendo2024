@@ -27,8 +27,12 @@ public class Launcher extends SubsystemBase {
   }
 
   // Intake
-  public void RunLauncher(double speed) {
+  public void RunSpeaker(double speed) {
     launcher.set(speed);
+  }
+
+  public void RunAmp(double speed) {
+    launcher.set(-speed);
   }
 
   @Override

@@ -33,7 +33,7 @@ public class SwerveDrive extends SubsystemBase {
   private SwerveModule[] swerve_modules;
   private SwerveModulePosition[] swerve_module_positions;
 
-  private PigeonIMU imu;
+  public PigeonIMU imu;
 
   SwerveDriveOdometry swerve_odometry;
 

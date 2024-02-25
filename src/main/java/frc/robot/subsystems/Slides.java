@@ -25,19 +25,27 @@ public class Slides extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public Slides() {
 
-    // Left Climber
+    // Slides Config
     this.slides = new CANSparkMax(SlidesConstants.slides_id, MotorType.kBrushless);
     slides.setInverted(true);
     this.slidesEncoder = slides.getEncoder();
 
     Shuffleboard.getTab("Game").addDouble(
-        "Slides" + " SlidesPos", () -> slidesEncoder.getPosition()
+        "Slides" + "Pos", () -> slidesEncoder.getPosition()
     );
   }
 
-  // Left Climber
-  public void SlidesRun(double speed) {
-    slides.set(speed);
+  // Slides
+  public void SlidesUp() {
+    slides.set(0.5);
+  }
+
+  public void SlidesDown() {
+    slides.set(-0.5);
+  }
+
+  public void SlidesOff() {
+    slides.set(0);
   }
 
   @Override
