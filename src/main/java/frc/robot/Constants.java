@@ -20,6 +20,9 @@ import java.util.*;
 
 // Pheonix imports
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -145,6 +148,13 @@ public final class Constants {
       new SwerveModuleConstants(DriveConstants.rear_right_steer_id, DriveConstants.rear_right_drive_id, DriveConstants.rear_right_CANcoder_id),
     };
     
+    public static final HolonomicPathFollowerConfig pathFollowerConfig = new HolonomicPathFollowerConfig(
+      new PIDConstants(15, 0, 0), // Translation constants 
+      new PIDConstants(30, 0, 0), // Rotation constants 
+      4.5, 
+      25.114, // Drive base radius (distance from center to furthest module) 
+      new ReplanningConfig()
+    );
   }
 
   public static SwerveModuleState optimize(SwerveModuleState desired_state, Rotation2d current_angle) {
@@ -203,7 +213,7 @@ public final class Constants {
   }
 
   public static class IntakeConstants {
-    public static final int intake_id = 12;
+    public static final int intake_id = 13;
   }
 
   public static class ClimberConstants {
@@ -212,7 +222,7 @@ public final class Constants {
   }
 
   public static class LauncherConstants {
-    public static final int launcher_id = 13;
+    public static final int launcher_id = 12;
 
     public static final double launcher_kp = 0.0;
     public static final double launcher_ki = 0.0;

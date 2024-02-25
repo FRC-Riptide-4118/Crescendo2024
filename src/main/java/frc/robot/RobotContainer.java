@@ -82,16 +82,16 @@ public class RobotContainer {
   private final Joystick driver = new Joystick(0);
 
   // POV Button
-  private final POVButton povButton =
-      new POVButton(new GenericHID(0), 0);
+  // private final POVButton povButton =
+  //     new POVButton(new GenericHID(0), 0);
 
   // IMU 
-  private final JoystickButton zero_imu = 
-    new JoystickButton(driver, XboxController.Button.kY.value);
+  // private final JoystickButton zero_imu = 
+  //   new JoystickButton(driver, XboxController.Button.kY.value);
 
   // 
-  private final JoystickButton robotCentric =
-    new JoystickButton(driver, XboxController.Button.kA.value);
+  // private final JoystickButton robotCentric =
+  //   new JoystickButton(driver, XboxController.Button.kA.value);
 
 
   /** The container for the robot. Contains subsystems, IO devices, and commands. */
@@ -103,7 +103,7 @@ public class RobotContainer {
       () -> driverController.getLeftY(), 
       () -> -driverController.getLeftX(), 
       () -> -driverController.getRightX(),
-      () -> driverController.a().getAsBoolean())
+      () -> driverController.back().getAsBoolean())
     );
 
     // s_Intake.setDefaultCommand(intake);
@@ -134,7 +134,11 @@ public class RobotContainer {
     driverController.povUp().whileTrue(reset_to_abs);
 
     // Zeroing the IMU
-    zero_imu.whileTrue(new InstantCommand(()-> s_SwerveDrive.zero_imu()));
+    driverController.start().whileTrue(new InstantCommand(()-> s_SwerveDrive.zero_imu()));
+
+    // Intake // TESTING FOR SLIDES
+    driverController.a().onTrue(new InstantCommand(() -> s_Intake.Intake())).onFalse(new InstantCommand(() -> {s_Intake.Off(); }, s_Intake));
+    driverController.b().onTrue(new InstantCommand(() -> s_Intake.Outtake())).onFalse(new InstantCommand(() -> {s_Intake.Off(); }, s_Intake));
 
     // Left Climber
     driverController.leftBumper().onTrue(run_left_climber_up).onFalse(new InstantCommand(() -> {s_Climber.LeftRun(0); }, s_Climber));

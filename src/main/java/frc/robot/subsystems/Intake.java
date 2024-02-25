@@ -26,8 +26,16 @@ public class Intake extends SubsystemBase {
   }
 
   // Intake
-  public void RunIntake(double speed) {
-    intake.set(speed);
+  public void Intake() {
+    intake.set(0.5);
+  }
+
+  public void Outtake() {
+    intake.set(-0.5);
+  }
+
+  public void Off() {
+    intake.set(0);
   }
 
   @Override

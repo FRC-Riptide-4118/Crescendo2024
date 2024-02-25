@@ -12,6 +12,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -19,13 +20,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // CTRE imports
 import com.ctre.phoenix.sensors.PigeonIMU;
+import com.pathplanner.lib.auto.AutoBuilder;
 
 // Custom imports
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.subsystems.SwerveModule;
-// import frc.robot.Constants.;
-
+import frc.robot.Constants;
 
 public class SwerveDrive extends SubsystemBase {
 
@@ -37,6 +38,27 @@ public class SwerveDrive extends SubsystemBase {
   SwerveDriveOdometry swerve_odometry;
 
   public SwerveDrive() {
+
+    // Configure AutoBuilder
+    AutoBuilder.configureHolonomic(
+      this::getPose, 
+      this::resetOdometry, 
+      this::getSpeeds, 
+      this::driveRobotRelative, 
+      Constants.SwerveConstants.pathFollowerConfig,
+      () -> {
+          // Boolean supplier that controls when the path will be mirrored for the red alliance
+          // This will flip the path being followed to the red side of the field.
+          // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+          var alliance = DriverStation.getAlliance();
+          if (alliance.isPresent()) {
+              return alliance.get() == DriverStation.Alliance.Red;
+          }
+          return false;
+      },
+      this
+    );
 
     this.imu = new PigeonIMU(DriveConstants.pigeon_id);
     this.imu.configFactoryDefault();
@@ -103,6 +125,33 @@ public class SwerveDrive extends SubsystemBase {
     for (int i = 0; i < 4; i++) {
       this.swerve_modules[i].resetToAbsolute();
     }
+  }
+
+  public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds) {
+    ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(robotRelativeSpeeds, 0.02);
+
+    SwerveModuleState[] targetStates = SwerveConstants.swerve_kinematics.toSwerveModuleStates(targetSpeeds);
+    setStates(targetStates);
+  }
+
+  public void setStates(SwerveModuleState[] targetStates) {
+    SwerveDriveKinematics.desaturateWheelSpeeds(targetStates, SwerveConstants.maxSpeed);
+
+    for (int i = 0; i < swerve_modules.length; i++) {
+      swerve_modules[i].setDesiredState(targetStates[i], false);
+    }
+  }
+
+  public ChassisSpeeds getSpeeds() {
+    return SwerveConstants.swerve_kinematics.toChassisSpeeds(getModuleStates());
+  }
+
+  public SwerveModuleState[] getModuleStates() {
+    SwerveModuleState[] states = new SwerveModuleState[swerve_modules.length];
+    for (int i = 0; i < swerve_modules.length; i++) {
+      states[i] = swerve_modules[i].getState();
+    }
+    return states;
   }
 
   public Rotation2d get_yaw() {

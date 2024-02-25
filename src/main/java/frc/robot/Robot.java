@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.DoubleArraySubscriber;
+import edu.wpi.first.networktables.DoublePublisher;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -19,6 +23,11 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  DoublePublisher xPub;
+  DoublePublisher yPub;
+
+  DoubleArraySubscriber areasSub;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -28,7 +37,28 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    // NetworkTable table = NetworkTableInstance.getDefault().getTable("GRIP/mycontoursReport");
+    // areasSub = table.getDoubleArrayTopic("area").subscribe(new double[] {});
+
+    // Get the default instance of NetworkTables that was created automatically
+    // when the robot program starts
+    // NetworkTableInstance inst = NetworkTableInstance.getDefault();
+
+    // Get the table within that instance that contains the data. There can
+    // be as many tables as you like and exist to make it easier to organize
+    // your data. In this case, it's a table called datatable.
+    // NetworkTable table = inst.getTable("datatable");
+
+    // Start publishing topics within that table that correspond to the X and Y values
+    // for some operation in your program.
+    // The topic names are actually "/datatable/x" and "/datatable/y".
+    // xPub = table.getDoubleTopic("x").publish();
+    // yPub = table.getDoubleTopic("y").publish();
   }
+
+  // double x = 0;
+  // double y = 0;
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
@@ -81,7 +111,23 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    // // Publish values that are constantly increasing.
+    // xPub.set(x);
+    // yPub.set(y);
+    // x += 0.05;
+    // y += 1.0;
+
+    // double[] areas = areasSub.get();
+
+    // System.out.print("areas: " );
+
+    // for (double area : areas) {
+    //   System.out.print(area + " ");
+    // }
+
+    // System.out.println();
+  }
 
   @Override
   public void testInit() {
