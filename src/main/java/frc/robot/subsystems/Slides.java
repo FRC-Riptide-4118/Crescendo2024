@@ -27,7 +27,7 @@ public class Slides extends SubsystemBase {
 
     // Slides Config
     this.slides = new CANSparkMax(SlidesConstants.slides_id, MotorType.kBrushless);
-    slides.setInverted(true);
+    slides.setInverted(false);
     this.slidesEncoder = slides.getEncoder();
 
     Shuffleboard.getTab("Game").addDouble(
@@ -37,11 +37,11 @@ public class Slides extends SubsystemBase {
 
   // Slides
   public void SlidesUp() {
-    slides.set(0.05);
+    slides.set(0.1);
   }
 
   public void SlidesDown() {
-    slides.set(-0.05);
+    slides.set(-0.1);
   }
 
   public void SlidesOff() {

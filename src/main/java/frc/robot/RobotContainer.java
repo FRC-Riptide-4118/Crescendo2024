@@ -137,8 +137,8 @@ public class RobotContainer {
     driverController.b().onTrue(new InstantCommand(() -> s_Intake.Outtake())).onFalse(new InstantCommand(() -> {s_Intake.Off(); }, s_Intake));
 
     // Slides 
-    driverController.povLeft().onTrue(new InstantCommand(() -> s_Slides.SlidesUp())).onFalse(new InstantCommand(() -> {s_Slides.SlidesOff(); }, s_Slides));
-    driverController.povRight().onTrue(new InstantCommand(() -> s_Slides.SlidesDown())).onFalse(new InstantCommand(() -> {s_Slides.SlidesOff(); }, s_Slides));
+    driverController.povRight().onTrue(new InstantCommand(() -> s_Slides.SlidesUp())).onFalse(new InstantCommand(() -> {s_Slides.SlidesOff(); }, s_Slides));
+    driverController.povLeft().onTrue(new InstantCommand(() -> s_Slides.SlidesDown())).onFalse(new InstantCommand(() -> {s_Slides.SlidesOff(); }, s_Slides));
 
     // Left Climber
     driverController.leftBumper().onTrue(run_left_climber_up).onFalse(new InstantCommand(() -> {s_Climber.LeftRun(0); }, s_Climber));
