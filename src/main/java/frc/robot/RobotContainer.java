@@ -77,8 +77,10 @@ public class RobotContainer {
   InstantCommand run_right_climber_down = new InstantCommand(() -> {this.s_Climber.RightRun(-0.25); }, this.s_Climber);
 
   // Launcher
-  InstantCommand amp     = new InstantCommand(() -> {this.s_Launcher.RunAmp(this.driverController.getLeftTriggerAxis());}, this.s_Launcher);
-  InstantCommand speaker = new InstantCommand(() -> {this.s_Launcher.RunSpeaker(this.driverController.getRightTriggerAxis());}, this.s_Launcher);
+  // InstantCommand amp     = new InstantCommand(() -> {this.s_Launcher.Run(this.driverController.getLeftTriggerAxis());}, this.s_Launcher);
+  // InstantCommand speaker = new InstantCommand(() -> {this.s_Launcher.Run(-this.driverController.getRightTriggerAxis());}, this.s_Launcher);
+  // InstantCommand off     = new InstantCommand(() -> {this.s_Launcher.Run(0);}, this.s_Launcher);
+
 
   // Xbox Controller
   private final CommandXboxController driverController =
@@ -102,8 +104,8 @@ public class RobotContainer {
       () -> driverController.back().getAsBoolean())
     );
 
-    s_Launcher.setDefaultCommand(amp);
-    s_Launcher.setDefaultCommand(speaker);
+    // s_Launcher.setDefaultCommand(amp);
+    // s_Launcher.setDefaultCommand(speaker);
 
     configureBindings();
 
@@ -131,6 +133,13 @@ public class RobotContainer {
 
     // Zeroing the IMU
     driverController.start().whileTrue(new InstantCommand(()-> s_SwerveDrive.zero_imu()));
+
+    // Launcher
+    driverController.rightTrigger().onTrue(new InstantCommand(() -> s_Launcher.RunAmp())).onFalse(new InstantCommand(() -> {s_Launcher.Off(); }, s_Launcher));
+    driverController.leftTrigger().onTrue(new InstantCommand(() -> s_Launcher.RunSpeaker())).onFalse(new InstantCommand(() -> {s_Launcher.Off(); }, s_Launcher));
+    
+    // driverController.rightTrigger().onTrue(amp).onFalse(off);
+    // driverController.leftTrigger().onTrue(speaker).onFalse(off);
 
     // Intake 
     driverController.a().onTrue(new InstantCommand(() -> s_Intake.Intake())).onFalse(new InstantCommand(() -> {s_Intake.Off(); }, s_Intake));

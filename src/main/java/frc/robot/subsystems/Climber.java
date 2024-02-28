@@ -32,6 +32,8 @@ public class Climber extends SubsystemBase {
     this.leftClimber = new CANSparkMax(ClimberConstants.left_climber_id, MotorType.kBrushless);
     leftClimber.setInverted(true);
     this.leftClimbEncoder = leftClimber.getEncoder();
+    leftClimber.setSmartCurrentLimit(ClimberConstants.left_climber_current_limit);
+    leftClimber.setSecondaryCurrentLimit(ClimberConstants.left_climber_current_limit);
 
     Shuffleboard.getTab("Game").addDouble(
         "Climber" + " LeftPos", () -> leftClimbEncoder.getPosition()
@@ -41,6 +43,8 @@ public class Climber extends SubsystemBase {
     this.rightClimber = new CANSparkMax(ClimberConstants.right_climber_id, MotorType.kBrushless);
     rightClimber.setInverted(false);
     this.rightClimbEncoder = rightClimber.getEncoder();
+    rightClimber.setSmartCurrentLimit(ClimberConstants.right_climber_current_limit);
+    rightClimber.setSecondaryCurrentLimit(ClimberConstants.right_climber_current_limit);
 
     Shuffleboard.getTab("Game").addDouble(
         "Climber" + " RightPos", () -> rightClimbEncoder.getPosition()

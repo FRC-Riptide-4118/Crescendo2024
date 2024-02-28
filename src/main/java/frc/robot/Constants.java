@@ -104,7 +104,7 @@ public final class Constants {
     public static final IdleMode drive_idle_mode = IdleMode.kBrake;
 
     public static final int angle_smart_current_limit = 20;
-    public static final int drive_smart_current_limit = 80;
+    public static final int drive_smart_current_limit = 40;
 
     /* Drive Motor Conversion Factors */
     public static final double driveConversionPositionFactor =
@@ -222,6 +222,9 @@ public final class Constants {
   public static class ClimberConstants {
     public static final int left_climber_id = 9;
     public static final int right_climber_id = 14;
+
+    public static final int left_climber_current_limit  = 40;
+    public static final int right_climber_current_limit = 40;
   }
 
   public static class LauncherConstants {
@@ -235,6 +238,18 @@ public final class Constants {
 
   public static class SlidesConstants {
     public static final int slides_id = 13;
+
+    // Slides
+    public static final double slides_kp = 0.1;
+    public static final double slides_ki = 0.0;
+    public static final double slides_kd = 0.0;
+
+    // Positions
+    public static final double position1 = 0;
+    public static final double position2 = 2;
+    public static final double position3 = 4;
+    public static final double tolerance = 1;
+
   }
 
   public static final class AutoConstants {
