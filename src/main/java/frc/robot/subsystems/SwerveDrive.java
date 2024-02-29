@@ -182,6 +182,8 @@ public class SwerveDrive extends SubsystemBase {
 
     for (SwerveModule mod : this.swerve_modules) {
       mod.setDesiredState(swerveModuleStates[mod.module_number], isOpenLoop);
+      // mod.setDesiredState(swerveModuleStates[mod.module_number], false);
+
     }
   }
 
