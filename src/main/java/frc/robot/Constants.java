@@ -132,7 +132,7 @@ public final class Constants {
 
     /* Swerve Profiling Values */
     public static final double maxSpeed = 4.5; // meters per second
-    public static final double maxAngularVelocity = 80; // 11.5
+    public static final double maxAngularVelocity = 11.5; // 11.5
 
     public static final SwerveDriveKinematics swerve_kinematics = new SwerveDriveKinematics(
       new Translation2d(wheel_base / 2.0, -track_width / 2.0),  // +-

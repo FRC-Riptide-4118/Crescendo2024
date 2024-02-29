@@ -37,11 +37,11 @@ public class SwerveDrive extends SubsystemBase {
   private SwerveModulePosition[] swerve_module_positions;
   private Field2d field;
 
-  public Pigeon2 imu;
+  private final Pigeon2 imu;
 
-  public Pigeon2 gyro;
+  // public Pigeon2 gyro;
 
-  SwerveDriveOdometry swerve_odometry;
+  private SwerveDriveOdometry swerve_odometry;
 
   public SwerveDrive() {
 
@@ -68,6 +68,7 @@ public class SwerveDrive extends SubsystemBase {
 
     this.imu = new Pigeon2(DriveConstants.pigeon_id);
     this.imu.getConfigurator().apply(new Pigeon2Configuration());
+    // this.imu.getConfigurator().
     this.zero_imu();
 
     this.swerve_module_positions = new SwerveModulePosition[]{
@@ -87,8 +88,8 @@ public class SwerveDrive extends SubsystemBase {
       new SwerveModule(3, SwerveConstants.module_constants[3])
     };
 
-    field = new Field2d();
-    SmartDashboard.putData("Field", field);
+    // field = new Field2d();
+    // SmartDashboard.putData("Field", field);
 
     Shuffleboard.getTab("Game").addDouble(
       "Pigeon Angle", () -> this.get_yaw().getDegrees()

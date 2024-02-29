@@ -66,7 +66,7 @@ public class Slides extends SubsystemBase {
   }
 
   public double getPositionInches() {
-    return (Units.rotationsToRadians(slidesEncoder.getPosition())/80)*0.8125;
+    return (Units.rotationsToRadians(slidesEncoder.getPosition())/75)*0.8125;
   }
 
   // DON'T USE YET!!! MIGHT BREAK THINGS- PEOPLE WILL CRY!!! 
