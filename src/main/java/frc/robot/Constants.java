@@ -66,7 +66,7 @@ public final class Constants {
     public static final boolean invert_imu = false;
 
     // Pigeon
-    public static final int pigeon_id = 0;
+    public static final int pigeon_id = 20;
 
     public static final double driveGearRatio = (6.75 / 1.0); // 6.75:1
     public static final double angleGearRatio = (6.75*3 / 1.0); // 12.8:1
@@ -104,7 +104,7 @@ public final class Constants {
     public static final IdleMode drive_idle_mode = IdleMode.kBrake;
 
     public static final int angle_smart_current_limit = 20;
-    public static final int drive_smart_current_limit = 40;
+    public static final int drive_smart_current_limit = 80;
 
     /* Drive Motor Conversion Factors */
     public static final double driveConversionPositionFactor =

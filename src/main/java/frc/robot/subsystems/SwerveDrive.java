@@ -16,10 +16,13 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.ctre.phoenix6.configs.Pigeon2Configuration;
 // CTRE imports
-import com.ctre.phoenix.sensors.PigeonIMU;
+// import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 
 // Custom imports
@@ -32,8 +35,11 @@ public class SwerveDrive extends SubsystemBase {
 
   private SwerveModule[] swerve_modules;
   private SwerveModulePosition[] swerve_module_positions;
+  private Field2d field;
 
-  public PigeonIMU imu;
+  public Pigeon2 imu;
+
+  public Pigeon2 gyro;
 
   SwerveDriveOdometry swerve_odometry;
 
@@ -60,8 +66,8 @@ public class SwerveDrive extends SubsystemBase {
       this
     );
 
-    this.imu = new PigeonIMU(DriveConstants.pigeon_id);
-    this.imu.configFactoryDefault();
+    this.imu = new Pigeon2(DriveConstants.pigeon_id);
+    this.imu.getConfigurator().apply(new Pigeon2Configuration());
     this.zero_imu();
 
     this.swerve_module_positions = new SwerveModulePosition[]{
@@ -80,6 +86,9 @@ public class SwerveDrive extends SubsystemBase {
       new SwerveModule(2, SwerveConstants.module_constants[2]),
       new SwerveModule(3, SwerveConstants.module_constants[3])
     };
+
+    field = new Field2d();
+    SmartDashboard.putData("Field", field);
 
     Shuffleboard.getTab("Game").addDouble(
       "Pigeon Angle", () -> this.get_yaw().getDegrees()
@@ -155,12 +164,9 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public Rotation2d get_yaw() {
-
-    // return Rotation2d.fromDegrees(this.imu.getYaw());
     return (DriveConstants.invert_imu)
-      ? Rotation2d.fromDegrees(360 - imu.getYaw())
-      : Rotation2d.fromDegrees(imu.getYaw());
-
+      ? Rotation2d.fromDegrees(360 - imu.getYaw().getValueAsDouble())
+      : Rotation2d.fromDegrees(imu.getYaw().getValueAsDouble());
   }
 
   public void resetOdometry(Pose2d pose) {
@@ -178,7 +184,7 @@ public class SwerveDrive extends SubsystemBase {
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, SwerveConstants.maxSpeed);
 
     for (SwerveModule mod : this.swerve_modules) {
-      mod.setDesiredState(swerveModuleStates[mod.module_number], isOpenLoop);
+      mod.setDesiredState(swerveModuleStates[mod.module_number], false);
     }
   }
 

@@ -107,17 +107,6 @@ public class SwerveModule {
         resetToAbsolute();
     }
 
-    // private void configCANcoder() {
-    //     CANcoderConfiguration configs = new CANcoderConfiguration();
-
-    //     configs.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
-    //     // configs.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0To1;
-    //     configs.MagnetSensor.MagnetOffset += 0;
-    //     configs.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
-
-    //     this.can_coder.getConfigurator().apply(configs);
-    // }
-
     private void configDriveMotor() {
 
         this.drive_motor.restoreFactoryDefaults();
@@ -155,14 +144,6 @@ public class SwerveModule {
             this.drive_motor.set(percent_output);
 
         } else {
-
-            // check if FF needed
-            // this.drive_controller.setReference(
-            //     desired_state.speedMetersPerSecond, 
-            //     ControlType.kVelocity, 
-            //     0
-            // );
-
 
             this.drive_motor.setVoltage(
                 drive_controller.calculate(drive_encoder.getVelocity(), desired_state.speedMetersPerSecond)
