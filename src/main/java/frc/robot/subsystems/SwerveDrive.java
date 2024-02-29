@@ -19,7 +19,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.ctre.phoenix6.configs.Pigeon2Configuration;
 // CTRE imports
 // import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -38,8 +37,6 @@ public class SwerveDrive extends SubsystemBase {
   private Field2d field;
 
   private final Pigeon2 imu;
-
-  // public Pigeon2 gyro;
 
   private SwerveDriveOdometry swerve_odometry;
 
@@ -67,8 +64,6 @@ public class SwerveDrive extends SubsystemBase {
     );
 
     this.imu = new Pigeon2(DriveConstants.pigeon_id);
-    this.imu.getConfigurator().apply(new Pigeon2Configuration());
-    // this.imu.getConfigurator().
     this.zero_imu();
 
     this.swerve_module_positions = new SwerveModulePosition[]{
@@ -87,9 +82,6 @@ public class SwerveDrive extends SubsystemBase {
       new SwerveModule(2, SwerveConstants.module_constants[2]),
       new SwerveModule(3, SwerveConstants.module_constants[3])
     };
-
-    // field = new Field2d();
-    // SmartDashboard.putData("Field", field);
 
     Shuffleboard.getTab("Game").addDouble(
       "Pigeon Angle", () -> this.get_yaw().getDegrees()
@@ -185,7 +177,7 @@ public class SwerveDrive extends SubsystemBase {
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, SwerveConstants.maxSpeed);
 
     for (SwerveModule mod : this.swerve_modules) {
-      mod.setDesiredState(swerveModuleStates[mod.module_number], false);
+      mod.setDesiredState(swerveModuleStates[mod.module_number], isOpenLoop);
     }
   }
 
