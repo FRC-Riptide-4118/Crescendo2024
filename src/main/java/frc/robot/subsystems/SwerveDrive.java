@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // CTRE imports
 import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 
 // Custom imports
@@ -33,7 +34,7 @@ public class SwerveDrive extends SubsystemBase {
   private SwerveModule[] swerve_modules;
   private SwerveModulePosition[] swerve_module_positions;
 
-  public PigeonIMU imu;
+  public Pigeon2 imu;
 
   SwerveDriveOdometry swerve_odometry;
 
@@ -60,8 +61,10 @@ public class SwerveDrive extends SubsystemBase {
       this
     );
 
-    this.imu = new PigeonIMU(DriveConstants.pigeon_id);
-    this.imu.configFactoryDefault();
+    // this.imu = new PigeonIMU(DriveConstants.pigeon_id);
+    this.imu = new Pigeon2(DriveConstants.pigeon_id);
+    // this.imu.configFactoryDefault();
+    // this.imu.getConfigurator().
     this.zero_imu();
 
     this.swerve_module_positions = new SwerveModulePosition[]{
@@ -158,8 +161,8 @@ public class SwerveDrive extends SubsystemBase {
 
     // return Rotation2d.fromDegrees(this.imu.getYaw());
     return (DriveConstants.invert_imu)
-      ? Rotation2d.fromDegrees(360 - imu.getYaw())
-      : Rotation2d.fromDegrees(imu.getYaw());
+      ? Rotation2d.fromDegrees(360 - imu.getYaw().getValueAsDouble())
+      : Rotation2d.fromDegrees(imu.getYaw().getValueAsDouble());
 
   }
 
