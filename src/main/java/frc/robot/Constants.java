@@ -34,9 +34,6 @@ import com.pathplanner.lib.util.ReplanningConfig;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-
-  public static final double DEG_PER_RAD = 180 / Math.PI;
-
   public static class DriveConstants {
 
     public static enum MotorPosition {
@@ -72,8 +69,6 @@ public final class Constants {
     public static final double angleGearRatio = (6.75*3 / 1.0); // 12.8:1
 
     // Math
-    // public static final double TICKS_PER_ROTATION = 42;
-    // public static final double DEGREES_PER_TICK = 360 / TICKS_PER_ROTATION;
     public static final double wheelDiameter = Units.inchesToMeters(4.0);
     public static final double wheelCircumference = wheelDiameter * Math.PI;
     
@@ -110,7 +105,7 @@ public final class Constants {
     public static final double driveConversionPositionFactor =
       (DriveConstants.wheelDiameter * Math.PI) / DriveConstants.driveGearRatio;
     public static final double driveConversionVelocityFactor = driveConversionPositionFactor / 60.0;
-    public static final double angleConversionFactor = 360/ DriveConstants.angleGearRatio;
+    public static final double angleConversionFactor = 360 / DriveConstants.angleGearRatio;
 
 
     public static final double angle_kP  = 0.1;
@@ -123,8 +118,6 @@ public final class Constants {
     public static final double drive_kD  = 0.0;
     public static final double drive_kFF = 0.0;
 
-    public static final double max_speed = 4.5;
-
     public static final double voltage_comp = 12.0;
 
     public static final double wheel_base = Units.inchesToMeters(24.75);
@@ -133,6 +126,8 @@ public final class Constants {
     /* Swerve Profiling Values */
     public static final double maxSpeed = 4.5; // meters per second
     public static final double maxAngularVelocity = 11.5; // 11.5
+
+    public static final Translation2d flModuleOffset = new Translation2d(0.7366, 0.7366);
 
     public static final SwerveDriveKinematics swerve_kinematics = new SwerveDriveKinematics(
       new Translation2d(wheel_base / 2.0, -track_width / 2.0),  // +-
@@ -149,11 +144,12 @@ public final class Constants {
       new SwerveModuleConstants(DriveConstants.rear_right_steer_id, DriveConstants.rear_right_drive_id, DriveConstants.rear_right_CANcoder_id),
     };
     
+    
     public static final HolonomicPathFollowerConfig pathFollowerConfig = new HolonomicPathFollowerConfig(
-      new PIDConstants(15, 0, 0), // Translation constants 
-      new PIDConstants(30, 0, 0), // Rotation constants 
+      new PIDConstants(5, 0, 0), // Translation constants 
+      new PIDConstants(5, 0, 0), // Rotation constants 
       4.5, 
-      0.52085, // Drive base radius (distance from center to furthest module) 
+      flModuleOffset.getNorm(), // Drive base radius (distance from center to furthest module) 
       new ReplanningConfig()
     );
   }
@@ -252,20 +248,20 @@ public final class Constants {
 
   }
 
-  public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond =1.5;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
-    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
-    public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+  // public static final class AutoConstants {
+  //   public static final double kMaxSpeedMetersPerSecond =1.5;
+  //   public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
+  //   public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+  //   public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
-    public static final double kPXController = 1;
-    public static final double kPYController = 1;
-    public static final double kPThetaController = 1;
+  //   public static final double kPXController = 1;
+  //   public static final double kPYController = 1;
+  //   public static final double kPThetaController = 1;
 
-    // Constraint for the motion profilied robot angle controller
-    public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
-        new TrapezoidProfile.Constraints(
-            kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
-  }
+  //   // Constraint for the motion profilied robot angle controller
+  //   public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
+  //       new TrapezoidProfile.Constraints(
+  //           kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+  // }
 
 }

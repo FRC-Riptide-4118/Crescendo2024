@@ -40,7 +40,7 @@ import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.Slides;
 import frc.robot.Constants.DriveConstants.MotorPosition;
 import frc.robot.Constants.ControllerConstants;
-import frc.robot.commands.ExampleAuto;
+// import frc.robot.commands.ExampleAuto;
 
 // Commands
 import frc.robot.commands.TeleOpSwerve;

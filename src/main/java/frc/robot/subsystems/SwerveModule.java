@@ -55,7 +55,6 @@ public class SwerveModule {
         this.angle_offset = module_constants.angle_offset;
 
         this.can_coder = new CANcoder(module_constants.CANCoder_id);
-        // this.configCANcoder();
         this.pos = this.can_coder.getAbsolutePosition();
 
         this.angle_motor = new CANSparkMax(module_constants.angle_motor_id, MotorType.kBrushless);
@@ -83,7 +82,6 @@ public class SwerveModule {
     public void resetToAbsolute() {
         Double absolutePosition = getCANDouble();
         angle_encoder.setPosition(absolutePosition);
-        // angle_controller.setSetpoint(0);
     }
 
     private void configAngleMotor() {
@@ -140,7 +138,7 @@ public class SwerveModule {
 
         if (is_open_loop) {
 
-            double percent_output = desired_state.speedMetersPerSecond / SwerveConstants.max_speed;
+            double percent_output = desired_state.speedMetersPerSecond / SwerveConstants.maxSpeed;
             this.drive_motor.set(percent_output);
 
         } else {
@@ -156,10 +154,9 @@ public class SwerveModule {
     public void setAngle(SwerveModuleState desired_state) {
    
         Rotation2d angle = 
-            (Math.abs(desired_state.speedMetersPerSecond) <= (SwerveConstants.max_speed * 0.01))
+            (Math.abs(desired_state.speedMetersPerSecond) <= (SwerveConstants.maxSpeed * 0.01))
                 ? this.prev_angle
                 : desired_state.angle;
-            
             
         this.angle_motor.setVoltage(angle_controller.calculate(angle_encoder.getPosition(), angle.getDegrees()));
         this.prev_angle = angle;

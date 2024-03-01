@@ -131,14 +131,13 @@ public class SwerveDrive extends SubsystemBase {
 
   public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds) {
     ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(robotRelativeSpeeds, 0.02);
-
     SwerveModuleState[] targetStates = SwerveConstants.swerve_kinematics.toSwerveModuleStates(targetSpeeds);
     setStates(targetStates);
   }
 
   public void setStates(SwerveModuleState[] targetStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(targetStates, SwerveConstants.maxSpeed);
-
+    
     for (int i = 0; i < swerve_modules.length; i++) {
       swerve_modules[i].setDesiredState(targetStates[i], false);
     }
