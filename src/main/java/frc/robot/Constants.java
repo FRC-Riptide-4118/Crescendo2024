@@ -72,8 +72,8 @@ public final class Constants {
     public static final double angleGearRatio = (6.75*3 / 1.0); // 12.8:1
 
     // Math
-    public static final double TICKS_PER_ROTATION = 42;
-    public static final double DEGREES_PER_TICK = 360 / TICKS_PER_ROTATION;
+    // public static final double TICKS_PER_ROTATION = 42;
+    // public static final double DEGREES_PER_TICK = 360 / TICKS_PER_ROTATION;
     public static final double wheelDiameter = Units.inchesToMeters(4.0);
     public static final double wheelCircumference = wheelDiameter * Math.PI;
     
@@ -86,7 +86,7 @@ public final class Constants {
     public int CANCoder_id;
     public Rotation2d angle_offset;
 
-    public SwerveModuleConstants(int angle_motor_id, int drive_motor_id, int CANCoder_id /*, Rotation2d angle_offset */ ) {
+    public SwerveModuleConstants(int angle_motor_id, int drive_motor_id, int CANCoder_id) {
 
       this.angle_motor_id = angle_motor_id;
       this.drive_motor_id = drive_motor_id;
@@ -110,8 +110,8 @@ public final class Constants {
     public static final double driveConversionPositionFactor =
       (DriveConstants.wheelDiameter * Math.PI) / DriveConstants.driveGearRatio;
     public static final double driveConversionVelocityFactor = driveConversionPositionFactor / 60.0;
-
     public static final double angleConversionFactor = 360/ DriveConstants.angleGearRatio;
+
 
     public static final double angle_kP  = 0.1;
     public static final double angle_kI  = 0.001;
@@ -127,8 +127,8 @@ public final class Constants {
 
     public static final double voltage_comp = 12.0;
 
-    public static final double wheel_base = Units.inchesToMeters(1.0);
-    public static final double track_width = Units.inchesToMeters(1.0);
+    public static final double wheel_base = Units.inchesToMeters(24.75);
+    public static final double track_width = Units.inchesToMeters(24.75);
 
     /* Swerve Profiling Values */
     public static final double maxSpeed = 4.5; // meters per second
@@ -153,7 +153,7 @@ public final class Constants {
       new PIDConstants(15, 0, 0), // Translation constants 
       new PIDConstants(30, 0, 0), // Rotation constants 
       4.5, 
-      25.114, // Drive base radius (distance from center to furthest module) 
+      0.52085, // Drive base radius (distance from center to furthest module) 
       new ReplanningConfig()
     );
   }
