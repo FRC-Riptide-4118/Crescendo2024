@@ -49,7 +49,9 @@ public class SwerveModule {
 
     private PIDController angle_controller;
     private PIDController drive_controller;
+    
     private SwerveModulePosition currentPosition = new SwerveModulePosition();
+    private SwerveModuleState currentState = new SwerveModuleState();
 
     public SwerveModule(int module_number, SwerveModuleConstants module_constants) {
 
@@ -134,6 +136,13 @@ public class SwerveModule {
         this.setAngle(desired_state);
         this.setSpeed(desired_state, is_open_loop);
 
+    }
+
+    public void setTargetState(SwerveModuleState targetState) {
+        // Optimize the state
+        currentState = SwerveModuleState.optimize(targetState, currentState.angle);
+  
+        currentPosition = new SwerveModulePosition(currentPosition.distanceMeters + (currentState.speedMetersPerSecond * 0.02), currentState.angle);
     }
 
     public void setSpeed(SwerveModuleState desired_state, boolean is_open_loop) {

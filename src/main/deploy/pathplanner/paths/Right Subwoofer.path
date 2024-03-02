@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": -0.49715287270209163,
-        "y": 5.111695911422016
+        "x": 0.7499999999999999,
+        "y": 6.75
       },
       "isLocked": false,
       "linkedName": "Start Point"
     },
     {
       "anchor": {
-        "x": 3.0,
-        "y": 7.212453282049422
+        "x": 2.5,
+        "y": 7.0
       },
       "prevControl": {
-        "x": 1.2210762506110302,
-        "y": 7.212453282049422
+        "x": 2.4000000000000004,
+        "y": 7.0
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,13 +50,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": -125.0,
+    "rotation": 60.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
