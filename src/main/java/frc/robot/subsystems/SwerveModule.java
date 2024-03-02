@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 // FIRST imports
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.math.controller.PIDController;
@@ -48,6 +49,7 @@ public class SwerveModule {
 
     private PIDController angle_controller;
     private PIDController drive_controller;
+    private SwerveModulePosition currentPosition = new SwerveModulePosition();
 
     public SwerveModule(int module_number, SwerveModuleConstants module_constants) {
 
@@ -150,7 +152,9 @@ public class SwerveModule {
         }
 
     }
-
+public SwerveModulePosition getPosition() {
+    return currentPosition;
+  }
     public void setAngle(SwerveModuleState desired_state) {
    
         Rotation2d angle = 

@@ -113,7 +113,7 @@ public final class Constants {
     public static final double angle_kD  = 0.0;
     public static final double angle_kFF = 0.0;
 
-    public static final double drive_kP  = 0.1;
+    public static final double drive_kP  = 0.3;
     public static final double drive_kI  = 0.0;
     public static final double drive_kD  = 0.0;
     public static final double drive_kFF = 0.0;
@@ -127,7 +127,11 @@ public final class Constants {
     public static final double maxSpeed = 4.5; // meters per second
     public static final double maxAngularVelocity = 11.5; // 11.5
 
-    public static final Translation2d flModuleOffset = new Translation2d(0.7366, 0.7366);
+    // Auto
+    public static final Translation2d flModuleOffset = new Translation2d(0.7366, -0.7366);
+    public static final Translation2d frModuleOffset = new Translation2d(0.7366, 0.7366);
+    public static final Translation2d blModuleOffset = new Translation2d(-0.7366, -0.7366);
+    public static final Translation2d brModuleOffset = new Translation2d(-0.7366, +0.7366);
 
     public static final SwerveDriveKinematics swerve_kinematics = new SwerveDriveKinematics(
       new Translation2d(wheel_base / 2.0, -track_width / 2.0),  // +-
@@ -148,7 +152,7 @@ public final class Constants {
     public static final HolonomicPathFollowerConfig pathFollowerConfig = new HolonomicPathFollowerConfig(
       new PIDConstants(5, 0, 0), // Translation constants 
       new PIDConstants(5, 0, 0), // Rotation constants 
-      4.5, 
+      maxSpeed, 
       flModuleOffset.getNorm(), // Drive base radius (distance from center to furthest module) 
       new ReplanningConfig()
     );
@@ -205,7 +209,7 @@ public final class Constants {
   public static class ControllerConstants {
 
     public static final int driver_controller_id = 0;
-    public static final double stickDeadband = 0.1;
+    public static final double stickDeadband = 0.05;
 
     public static final Joystick driver1 = new Joystick(0);
 

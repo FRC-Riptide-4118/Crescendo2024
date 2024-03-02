@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // CTRE imports
 // import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix6.hardware.Pigeon2;
+import com.ctre.phoenix6.mechanisms.swerve.SimSwerveDrivetrain.SimSwerveModule;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.pathplanner.lib.auto.AutoBuilder;
 
 // Custom imports
@@ -41,27 +43,6 @@ public class SwerveDrive extends SubsystemBase {
   private SwerveDriveOdometry swerve_odometry;
 
   public SwerveDrive() {
-
-    // Configure AutoBuilder
-    AutoBuilder.configureHolonomic(
-      this::getPose, 
-      this::resetOdometry, 
-      this::getSpeeds, 
-      this::driveRobotRelative, 
-      Constants.SwerveConstants.pathFollowerConfig,
-      () -> {
-          // Boolean supplier that controls when the path will be mirrored for the red alliance
-          // This will flip the path being followed to the red side of the field.
-          // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
-
-          var alliance = DriverStation.getAlliance();
-          if (alliance.isPresent()) {
-              return alliance.get() == DriverStation.Alliance.Red;
-          }
-          return false;
-      },
-      this
-    );
 
     this.imu = new Pigeon2(DriveConstants.pigeon_id);
     this.zero_imu();
@@ -129,32 +110,6 @@ public class SwerveDrive extends SubsystemBase {
     }
   }
 
-  public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds) {
-    ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(robotRelativeSpeeds, 0.02);
-    SwerveModuleState[] targetStates = SwerveConstants.swerve_kinematics.toSwerveModuleStates(targetSpeeds);
-    setStates(targetStates);
-  }
-
-  public void setStates(SwerveModuleState[] targetStates) {
-    SwerveDriveKinematics.desaturateWheelSpeeds(targetStates, SwerveConstants.maxSpeed);
-    
-    for (int i = 0; i < swerve_modules.length; i++) {
-      swerve_modules[i].setDesiredState(targetStates[i], false);
-    }
-  }
-
-  public ChassisSpeeds getSpeeds() {
-    return SwerveConstants.swerve_kinematics.toChassisSpeeds(getModuleStates());
-  }
-
-  public SwerveModuleState[] getModuleStates() {
-    SwerveModuleState[] states = new SwerveModuleState[swerve_modules.length];
-    for (int i = 0; i < swerve_modules.length; i++) {
-      states[i] = swerve_modules[i].getState();
-    }
-    return states;
-  }
-
   public Rotation2d get_yaw() {
     return (DriveConstants.invert_imu)
       ? Rotation2d.fromDegrees(360 - imu.getYaw().getValueAsDouble())
@@ -182,6 +137,21 @@ public class SwerveDrive extends SubsystemBase {
 
   @Override
   public void periodic() {
-
+    
   }
+
+  class SimSwerveModule {
+      private SwerveModulePosition currentPosition = new SwerveModulePosition();
+      private SwerveModuleState currentState = new SwerveModuleState();
+  
+      public SwerveModulePosition getPosition() {
+        return currentPosition;
+      }
+  
+      public SwerveModuleState getState() {
+        return currentState;
+      }
+  
+    }
+
 }

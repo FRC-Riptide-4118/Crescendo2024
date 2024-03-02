@@ -34,6 +34,7 @@ import com.pathplanner.lib.auto.CommandUtil;
 
 // Subsystems
 import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.SwerveAutoBuild;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Launcher;
@@ -59,6 +60,8 @@ public class RobotContainer {
   private final Intake          s_Intake  = new Intake();
   private final Launcher       s_Launcher = new Launcher();
   private final Slides           s_Slides = new Slides();
+
+  private final SwerveAutoBuild swerve = new SwerveAutoBuild();
 
 
   private final SendableChooser<Command> autoChooser;
