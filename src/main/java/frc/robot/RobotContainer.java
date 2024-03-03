@@ -147,7 +147,7 @@ public class RobotContainer {
 
     // Slides 
     driverController.povRight().onTrue(new InstantCommand(() -> s_Slides.SlidesUp())).onFalse(new InstantCommand(() -> {s_Slides.SlidesOff(); }, s_Slides));;
-    driverController.povLeft().onTrue(new InstantCommand(() -> s_Slides.SlidesDown(-0.2))).onFalse(new InstantCommand(() -> {s_Slides.SlidesOff(); }, s_Slides));
+    driverController.povLeft().onTrue(new InstantCommand(() -> s_Slides.SlidesDown(driverController.povLeft().getAsBoolean()))).onFalse(new InstantCommand(() -> {s_Slides.SlidesOff(); }, s_Slides));
 
     // .onFalse(new InstantCommand(() -> {s_Slides.SlidesOff(); }, s_Slides));
 

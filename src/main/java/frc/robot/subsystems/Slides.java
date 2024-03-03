@@ -27,7 +27,7 @@ public class Slides extends SubsystemBase {
   private PIDController slidesPID;
 
   // DigitalInput toplimitSwitch = new DigitalInput(1);
-  private DigitalInput bottomLimitSwitch = new DigitalInput(0);
+  private DigitalInput bottomlimitSwitch;
 
   /** Creates a new ExampleSubsystem. */
   public Slides() {
@@ -37,13 +37,14 @@ public class Slides extends SubsystemBase {
     slides.setInverted(false);
     this.slidesEncoder = slides.getEncoder();
     this.slidesPID = new PIDController(SlidesConstants.slides_kp, SlidesConstants.slides_ki, SlidesConstants.slides_kd);
+    this.bottomlimitSwitch = new DigitalInput(0);
 
     Shuffleboard.getTab("Game").addDouble(
         "Slides" + "Pos", () -> slidesEncoder.getPosition()
     );
 
     Shuffleboard.getTab("Game").addBoolean(
-        "Limit" + "Switch", () -> bottomLimitSwitch.get()
+        "Limit" + "Switch", () -> bottomlimitSwitch.get()
     );
 
     // Shuffleboard.getTab("Game").addDouble(
@@ -67,14 +68,42 @@ public class Slides extends SubsystemBase {
   }
 
 
-  public void SlidesDown(double speed) {
-      if (bottomLimitSwitch.get() == true) {
-          // We are going up and top limit is tripped so stop
+  public void SlidesDown(boolean dpad) {
+    
+    while (dpad == true) {
+      if (bottomlimitSwitch.get() == true) {
+          // Limit switch not tripped
+          slides.set(-0.1);
+      } 
+        else if(bottomlimitSwitch.get() == false){
+          // Limit Switch Tripped
           slides.set(0);
-      } else {
-          // We are going up but top limit is not tripped so go at commanded speed
-          slides.set(speed);
       }
+      // else {
+      //   slides.set(0);
+      // }
+    }
+    // while (dpad == true){
+
+    // }
+    //   if (speed < 0) {
+    //     if (!bottomlimitSwitch.get()) {
+    //         // We are going up and top limit is tripped so stop
+    //         slides.set(0);
+    //     } else {
+    //         // We are going up but top limit is not tripped so go at commanded speed
+            
+    //         slides.set(speed);
+    //     }
+    // } else {
+    //     if (bottomlimitSwitch.get()) {
+    //         // We are going down and bottom limit is tripped so stop
+    //         slides.set(speed);
+    //     } else {
+    //         // We are going down but bottom limit is not tripped so go at commanded speed
+    //         slides.set(0);
+    //     }
+    // }
   }
 
   public void SlidesOff() {
