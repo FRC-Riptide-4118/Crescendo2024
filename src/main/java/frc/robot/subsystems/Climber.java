@@ -49,6 +49,7 @@ public class Climber extends SubsystemBase {
     Shuffleboard.getTab("Game").addDouble(
         "Climber" + " RightPos", () -> rightClimbEncoder.getPosition()
     );
+    
   }
 
   // Left Climber
