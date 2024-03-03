@@ -150,8 +150,8 @@ public final class Constants {
     
     
     public static final HolonomicPathFollowerConfig pathFollowerConfig = new HolonomicPathFollowerConfig(
-      new PIDConstants(1, 0, 0), // Translation constants 
-      new PIDConstants(1, 0, 0), // Rotation constants 
+      new PIDConstants(0.1, 0, 0), // Translation constants 
+      new PIDConstants(0.1, 0, 0), // Rotation constants 
       maxSpeed, 
       flModuleOffset.getNorm(), // Drive base radius (distance from center to furthest module) 
       new ReplanningConfig()
@@ -217,6 +217,10 @@ public final class Constants {
 
   public static class IntakeConstants {
     public static final int intake_id = 10;
+
+    public static final double intake_kp = 0.1;
+    public static final double intake_ki = 0.0;
+    public static final double intake_kd = 0.0;
   }
 
   public static class ClimberConstants {
@@ -230,7 +234,7 @@ public final class Constants {
   public static class LauncherConstants {
     public static final int launcher_id = 12;
 
-    public static final double launcher_kp = 0.0;
+    public static final double launcher_kp = 0.1;
     public static final double launcher_ki = 0.0;
     public static final double launcher_kd = 0.0;
 
@@ -245,10 +249,10 @@ public final class Constants {
     public static final double slides_kd = 0.0;
 
     // Positions
-    public static final double position1 = 0;
-    public static final double position2 = 2;
-    public static final double position3 = 4;
-    public static final double tolerance = 1;
+    public static final double position1 = -1;
+    public static final double position2 = 0;
+    public static final double position3 = 1;
+    public static final double tolerance = 0.5;
 
   }
 

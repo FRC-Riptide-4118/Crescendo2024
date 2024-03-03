@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.proto.Controller;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,6 +26,9 @@ public class Slides extends SubsystemBase {
   private RelativeEncoder slidesEncoder;
   private PIDController slidesPID;
 
+  // DigitalInput toplimitSwitch = new DigitalInput(1);
+  private DigitalInput bottomLimitSwitch = new DigitalInput(0);
+
   /** Creates a new ExampleSubsystem. */
   public Slides() {
 
@@ -38,66 +42,88 @@ public class Slides extends SubsystemBase {
         "Slides" + "Pos", () -> slidesEncoder.getPosition()
     );
 
-    Shuffleboard.getTab("Game").addDouble(
-        "Slides" + "InPos", () -> getPositionInches()
+    Shuffleboard.getTab("Game").addBoolean(
+        "Limit" + "Switch", () -> bottomLimitSwitch.get()
     );
+
+    // Shuffleboard.getTab("Game").addDouble(
+    //     "Slides" + "InPos", () -> getPositionInches()
+    // );
+
   }
 
   // Slides
   public void SlidesUp() {
-    slides.set(0.1);
+    double speed = 0.5;
+
+    // if (toplimitSwitch.get()) {
+          // We are going down and bottom limit is tripped so stop
+          // slides.set(0);
+      // } 
+      // else {
+          // We are going up but top limit is not tripped so go at commanded speed
+          slides.set(speed);
+    // }
   }
 
-  public void SlidesDown() {
-    slides.set(-0.1);
+
+  public void SlidesDown(double speed) {
+      if (bottomLimitSwitch.get() == true) {
+          // We are going up and top limit is tripped so stop
+          slides.set(0);
+      } else {
+          // We are going up but top limit is not tripped so go at commanded speed
+          slides.set(speed);
+      }
   }
 
   public void SlidesOff() {
     slides.set(0);
   }
+  
+  // // PID Slides DON'T UTILIZE YET - NOT TUNED, MOST LIKELY NEED ABSOLUTE ENCODER
+  // public void setSetpoint(double setpoint) {
+  //   slidesPID.setSetpoint(setpoint);
+  // }
 
-  // PID Slides
-  public void setSetpoint(double setpoint) {
-    slidesPID.setSetpoint(setpoint);
-  }
+  // public void runPID() {
+  //   slides.set(slidesPID.calculate(getPositionInches()));
+  // }
 
-  public void runPID() {
-    slides.set(slidesPID.calculate(getPositionInches()));
-  }
+  // public double getPositionInches() {
+  //   return (Units.rotationsToRadians(slidesEncoder.getPosition())/75)*0.8125;
+  // }
 
-  public double getPositionInches() {
-    return (Units.rotationsToRadians(slidesEncoder.getPosition())/75)*0.8125;
-  }
+  // // DON'T USE YET!!! MIGHT BREAK THINGS- PEOPLE WILL CRY!!! 
+  // public void incrementUp() {
+  //   if(Math.abs(SlidesConstants.position1 - getPositionInches()) <= SlidesConstants.tolerance) {
+  //     slidesPID.setSetpoint(SlidesConstants.position2);
+  //   }
+  //   else if(Math.abs(SlidesConstants.position2 - getPositionInches()) <= SlidesConstants.tolerance) {
+  //     slidesPID.setSetpoint(SlidesConstants.position3);
+  //   }
+  //   else if(Math.abs(SlidesConstants.position3 - getPositionInches()) <= SlidesConstants.tolerance) {
+  //     slidesPID.setSetpoint(SlidesConstants.position1);
+  //   }
+  // }
 
-  // DON'T USE YET!!! MIGHT BREAK THINGS- PEOPLE WILL CRY!!! 
-  public void incrementUp() {
-    if(Math.abs(SlidesConstants.position1 - getPositionInches()) <= SlidesConstants.tolerance) {
-      slidesPID.setSetpoint(SlidesConstants.position2);
-    }
-    else if(Math.abs(SlidesConstants.position2 - getPositionInches()) <= SlidesConstants.tolerance) {
-      slidesPID.setSetpoint(SlidesConstants.position3);
-    }
-    else if(Math.abs(SlidesConstants.position3 - getPositionInches()) <= SlidesConstants.tolerance) {
-      slidesPID.setSetpoint(SlidesConstants.position1);
-    }
-  }
-
-  public void incrementDown() {
-    if(Math.abs(SlidesConstants.position1 - getPositionInches()) <= SlidesConstants.tolerance) {
-      slidesPID.setSetpoint(SlidesConstants.position3);
-    }
-    else if(Math.abs(SlidesConstants.position2 - getPositionInches()) <= SlidesConstants.tolerance) {
-      slidesPID.setSetpoint(SlidesConstants.position1);
-    }
-    else if(Math.abs(SlidesConstants.position3 - getPositionInches()) <= SlidesConstants.tolerance) {
-      slidesPID.setSetpoint(SlidesConstants.position2);
-    }
-  }
+  // public void incrementDown() {
+  //   if(Math.abs(SlidesConstants.position1 - getPositionInches()) <= SlidesConstants.tolerance) {
+  //     slidesPID.setSetpoint(SlidesConstants.position3);
+  //   }
+  //   else if(Math.abs(SlidesConstants.position2 - getPositionInches()) <= SlidesConstants.tolerance) {
+  //     slidesPID.setSetpoint(SlidesConstants.position1);
+  //   }
+  //   else if(Math.abs(SlidesConstants.position3 - getPositionInches()) <= SlidesConstants.tolerance) {
+  //     slidesPID.setSetpoint(SlidesConstants.position2);
+  //   }
+  // }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     // runPID();
+    // slidesEncoder.setPosition(0);
   }
 
   @Override

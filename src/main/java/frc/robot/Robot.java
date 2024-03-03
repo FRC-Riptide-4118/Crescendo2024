@@ -51,7 +51,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   // private SwerveDrive s_Swerve;
 
-  // private final Limelight limelight = new Limelight();
+  private final Limelight limelight = new Limelight();
 
   //NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   // NetworkTable limelightAprilTable = NetworkTableInstance.getDefault().getTable("limelight-april");
@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    // limelight.updateLimelightData();
+    limelight.updateLimelightData();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
